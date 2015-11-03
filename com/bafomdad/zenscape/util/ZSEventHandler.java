@@ -1,0 +1,145 @@
+package com.bafomdad.zenscape.util;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.lwjgl.input.Mouse;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.event.MouseEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import com.bafomdad.zenscape.BlockZenScape;
+import com.bafomdad.zenscape.ZenScape;
+import com.bafomdad.zenscape.blocks.BlockFruitBomb;
+import com.bafomdad.zenscape.blocks.BlockSpawnBlock;
+import com.bafomdad.zenscape.items.ItemCard;
+import com.bafomdad.zenscape.render.ZenTextureStitch;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+public class ZSEventHandler {
+	
+	public List<ItemStack> eventList = new ArrayList<ItemStack>();
+	
+	@SubscribeEvent
+	public void blockInteract(PlayerInteractEvent event) {
+		
+		if ((event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) && event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z) == ZenScape.blockFruitBomb)
+		{
+			if (!event.entityPlayer.capabilities.isCreativeMode || event.entityPlayer.getCurrentEquippedItem() != null && event.entityPlayer.getCurrentEquippedItem() == new ItemStack(ZenScape.itemGrafterNet))
+			{
+				BlockFruitBomb bfb = (BlockFruitBomb)event.world.getBlock(event.x, event.y, event.z);
+				bfb.dropTheBass(event.world, event.x, event.y, event.z);
+				event.setCanceled(true);
+			}
+		}
+		if ((event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) && event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z) == Blocks.waterlily && !event.world.isRemote)
+		{
+			if (event.entityPlayer.getCurrentEquippedItem() != null && event.entityPlayer.getCurrentEquippedItem().getItem() == ZenScape.itemCompost)
+			{
+				eventList.clear();
+				List<EntityItem> items = event.world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(event.x, event.y, event.z, event.x + 1, event.y + 1, event.z + 1));
+				for (EntityItem item : items) {
+					if (item != null) {
+						if (!eventList.contains(item.getEntityItem()))
+							eventList.add(item.getEntityItem());
+						
+						for (ZPadCrafting recipes : ZPadCrafting.lilyRecipes) {
+							if (recipes.matches(this)) 
+							{
+								eventList.clear();
+								Block output = (Block)recipes.getOutput();
+								int meta = recipes.getOutputMeta();
+								event.world.setBlock(event.x, event.y, event.z, output, meta, 2);
+								if (!event.entityPlayer.capabilities.isCreativeMode)
+									event.entityPlayer.getCurrentEquippedItem().stackSize--;
+								for (int i = 0; i < items.size(); i++) {
+									ZPacketDispatcher.clientParticle("cloud", items.get(i).posX, items.get(i).posY, items.get(i).posZ, 0.0D, 0.1D, 0.0D);
+									items.get(i).setDead();
+								}		
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void checkEntityDeaths(LivingDeathEvent event) {
+		
+		NBTTagCompound tag = event.entity.getEntityData();
+		if (tag.hasKey(BlockSpawnBlock.TAG_SPAWNTREASURE))
+		{
+			int tagx = tag.getInteger(BlockSpawnBlock.TAG_XLOC);
+			int tagy = tag.getInteger(BlockSpawnBlock.TAG_YLOC);
+			int tagz = tag.getInteger(BlockSpawnBlock.TAG_ZLOC);
+			
+			if (event.entity.worldObj.isAirBlock(tagx, tagy + 1, tagz))
+			{
+				Random rand = new Random();
+				event.entity.worldObj.setBlock(tagx, tagy + 1, tagz, Blocks.chest);
+				WeightedRandomChestContent.generateChestContents(rand, ChestGenHooks.getItems(ChestGenHooks.DUNGEON_CHEST, rand), (IInventory)event.entity.worldObj.getTileEntity(tagx, tagy + 1, tagz), 9);
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void texturePreStitch(TextureStitchEvent.Pre event) {
+		
+		if(event.map.getTextureType() == 0) 
+		{
+			event.map.setTextureEntry("zenscape:zengrass_bottom", ZenScape.texGrassBottom = new ZenTextureStitch("zenscape:zengrass_bottom"));
+			event.map.setTextureEntry("zenscape:zengrass_side", ZenScape.texGrassSide = new ZenTextureStitch("zenscape:zengrass_side"));
+			event.map.setTextureEntry("zenscape:zengrass_top", ZenScape.texGrassTop = new ZenTextureStitch("zenscape:zengrass_top"));
+			event.map.setTextureEntry("zenscape:zendirt", ZenScape.texDirtFossil = new ZenTextureStitch("zenscape:zendirt"));
+			event.map.setTextureEntry("zenscape:flywood_tex", ZenScape.texLogSide = new ZenTextureStitch("zenscape:flywood_tex"));
+			event.map.setTextureEntry("zenscape:flywood_top_tex", ZenScape.texLogTop = new ZenTextureStitch("zenscape:flywood_top_tex"));
+			event.map.setTextureEntry("zenscape:leaves_flywood_tex", ZenScape.texLeaves = new ZenTextureStitch("zenscape:leaves_flywood_tex"));
+			event.map.setTextureEntry("zenscape:zenbrick0_tex", ZenScape.texBrick0 = new ZenTextureStitch("zenscape:zenbrick0_tex"));
+			event.map.setTextureEntry("zenscape:zenbrick1_tex", ZenScape.texBrick1 = new ZenTextureStitch("zenscape:zenbrick1_tex"));
+			event.map.setTextureEntry("zenscape:zenbrick2_tex", ZenScape.texBrick2 = new ZenTextureStitch("zenscape:zenbrick2_tex"));
+			event.map.setTextureEntry("zenscape:zenbrick3_tex", ZenScape.texBrick3 = new ZenTextureStitch("zenscape:zenbrick3_tex"));
+			event.map.setTextureEntry("zenscape:zenbrick16_tex", ZenScape.texBrick16 = new ZenTextureStitch("zenscape:zenbrick16_tex"));
+			event.map.setTextureEntry("zenscape:bush_tex", ZenScape.texBush = new ZenTextureStitch("zenscape:bush_tex"));
+		}
+	}
+	
+	@SubscribeEvent
+	public void shouldBlockHighlightHighlightCertainBlocks(DrawBlockHighlightEvent event) {
+		
+		int meta = event.player.worldObj.getBlockMetadata(event.target.blockX, event.target.blockY, event.target.blockZ);
+			
+		if (event.player != null && event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ) instanceof BlockZenScape)
+		{
+			if (event.currentItem != null)
+			{
+				NBTTagCompound tool = event.currentItem.getTagCompound();
+				if (tool != null && tool.hasKey(ItemCard.TAG_HIGHLIGHT))
+				{
+					return;
+				}
+			}
+			event.setCanceled(true);
+		}
+	}
+}

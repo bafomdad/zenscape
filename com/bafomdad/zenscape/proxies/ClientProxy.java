@@ -1,0 +1,90 @@
+package com.bafomdad.zenscape.proxies;
+
+import org.lwjgl.input.Mouse;
+
+import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
+
+import com.bafomdad.zenscape.ZenScape;
+import com.bafomdad.zenscape.blocks.BlockClayPot;
+import com.bafomdad.zenscape.blocks.BlockCraftBox;
+import com.bafomdad.zenscape.blocks.BlockCraftTree;
+import com.bafomdad.zenscape.blocks.BlockDokuPot;
+import com.bafomdad.zenscape.blocks.BlockFruitBomb;
+import com.bafomdad.zenscape.blocks.BlockJoker;
+import com.bafomdad.zenscape.blocks.BlockSkybeam;
+import com.bafomdad.zenscape.blocks.BlockTestGear;
+import com.bafomdad.zenscape.blocks.BlockWaterTorch;
+import com.bafomdad.zenscape.blocks.BlockZenLily;
+import com.bafomdad.zenscape.entity.EntityDokuDrop;
+import com.bafomdad.zenscape.entity.EntityFruitBomb;
+import com.bafomdad.zenscape.entity.EntityPuffball;
+import com.bafomdad.zenscape.render.RenderClayPot;
+import com.bafomdad.zenscape.render.RenderCraftBox;
+import com.bafomdad.zenscape.render.RenderCraftTree;
+import com.bafomdad.zenscape.render.RenderDokuPot;
+import com.bafomdad.zenscape.render.RenderFruitBomb;
+import com.bafomdad.zenscape.render.RenderJoker;
+import com.bafomdad.zenscape.render.RenderSkybeam;
+import com.bafomdad.zenscape.render.RenderTestGear;
+import com.bafomdad.zenscape.render.RenderWaterTorch;
+import com.bafomdad.zenscape.render.RenderZenLily;
+
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+
+public class ClientProxy extends CommonProxy {
+	
+	public static int renderPass;
+
+	@Override
+	public void init() {
+		
+		super.init();
+		
+		BlockWaterTorch.renderId = RenderingRegistry.getNextAvailableRenderId();
+		BlockDokuPot.renderId = RenderingRegistry.getNextAvailableRenderId();
+		BlockZenLily.renderId = RenderingRegistry.getNextAvailableRenderId();
+		BlockJoker.renderId = RenderingRegistry.getNextAvailableRenderId();
+		
+		RenderingRegistry.registerBlockHandler(new RenderWaterTorch());
+		RenderingRegistry.registerBlockHandler(new RenderDokuPot());
+		RenderingRegistry.registerBlockHandler(new RenderZenLily());
+		RenderingRegistry.registerBlockHandler(new RenderJoker());
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityFruitBomb.class, new RenderFruitBomb());
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockFruitBomb.TileEntityFruitBomb.class, new BlockFruitBomb.TileEntityFruitBombRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftTree.TileCraftTree.class, new RenderCraftTree());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockTestGear.TileTestGear.class, new RenderTestGear());		
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockClayPot.TileClayPot.class, new RenderClayPot());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockClayPot.TileClayPotDeco.class, new RenderClayPot());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftBox.TileCraftBox.class, new RenderCraftBox());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockJoker.TileJoker.class, new RenderJoker());
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockSkybeam.TileSkybeam.class, new RenderSkybeam());
+	}
+	
+	@Override
+	public void registerRenderers() {
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityDokuDrop.class, new RenderSnowball(ZenScape.itemDokuDrop));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPuffball.class, new RenderSnowball(Items.snowball));
+		
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ZenScape.blockClayPot), new RenderClayPot.RenderClayPotItem());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ZenScape.blockCraftBox), new RenderCraftBox.RenderCraftBoxItem());
+	}
+	
+	public boolean isButtonDown(int button) {
+		
+		boolean isDown = false;
+		try
+		{
+			isDown = Mouse.isButtonDown(button);
+		}
+		catch (Exception e) {}
+		return isDown;
+	}
+}
