@@ -43,8 +43,6 @@ public class BlockJoker extends Block implements ITileEntityProvider {
 		setBlockBounds(0, 0.5F, 0, 1, 1, 1);
 	}
 	
-	public static int renderId;
-	
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side)
     {
@@ -52,17 +50,11 @@ public class BlockJoker extends Block implements ITileEntityProvider {
     		return false;
     	return true;
     }
-    
-	@SideOnly(Side.CLIENT)
-	public int getRenderBlockPass() {
-		
-		return 1;
-	}
 	
-	public int getRenderType() {
-		
-		return renderId;
-	}
+    public boolean renderAsNormalBlock() {
+    	
+    	return false;
+    }
     
     public boolean isOpaqueCube() {
     	

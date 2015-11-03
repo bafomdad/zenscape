@@ -34,17 +34,17 @@ public class WorldGenJokerTree extends WorldGenerator {
 			for (int treeBase = 0; treeBase <= trunk; treeBase++) {
 				world.setBlock(x, y + treeBase, z, ZenScape.blockZenLog3, 0, 3);
 				
-				int leafStart = trunk;
+				int leafStart = trunk - 1;
 				
-				setBlockIfAir(world, x + 1, y + leafStart, z, ZenScape.blockZenLeaves, 5, 3);
-				setBlockIfAir(world, x - 1, y + leafStart, z, ZenScape.blockZenLeaves, 5, 3);
-				setBlockIfAir(world, x, y + leafStart, z + 1, ZenScape.blockZenLeaves, 5, 3);
-				setBlockIfAir(world, x, y + leafStart, z - 1, ZenScape.blockZenLeaves, 5, 3);
-				for (int i = -1; i <= 1; i++) {
-					for (int j = -1; j <= 1; j++) {
-						for (int leafHeight = leafStart + 1; leafHeight <= leafStart + 3; leafHeight++) {
-							setBlockIfAir(world, x + i, y + leafHeight, z, ZenScape.blockZenLeaves, 5, 3);
-							setBlockIfAir(world, x, y + leafHeight, z + j, ZenScape.blockZenLeaves, 5, 3);
+				this.generateLeaves(world, x, y + leafStart, z);
+				
+				for (int i = -3; i <= 3; i++) {
+					for (int j = -3; j <= 3; j++) {
+						for (int k = leafStart; k <= leafStart + 5; k++) {
+							if (world.getBlock(x + i, y + (k - 1), z + j) != null && world.getBlock(x + i, y + (k - 1), z + j) == ZenScape.blockZenLeaves && world.getBlockMetadata(x + i, y + (k - 1), z + j) == 5)
+							{
+								this.setBlockIfAir(world, x, y, z, ZenScape.blockJoker, 0, 3);
+							}
 						}
 					}
 				}
@@ -52,6 +52,111 @@ public class WorldGenJokerTree extends WorldGenerator {
 			return true;
 		}
 		return false;
+	}
+	
+	private void generateLeaves(World world, int x, int y, int z) {
+		
+		world.setBlock(x - 3, y + 4, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 3, y + 5, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 3, y + 6, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 3, y + 6, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 3, y + 7, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 3, y + 7, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 2, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 3, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 3, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 3, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 4, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 4, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 4, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 5, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 5, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 5, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 5, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 6, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 6, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 7, z - 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 2, y + 7, z + 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 0, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 1, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 1, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 1, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 2, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 2, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 2, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 3, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 3, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 3, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 3, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 3, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 4, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 4, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 4, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 4, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 5, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 5, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 6, z - 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x - 1, y + 6, z + 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 0, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 0, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 1, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 1, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 2, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 2, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 2, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 2, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 3, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 3, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 3, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 3, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 3, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 4, z - 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 4, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 4, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 4, z + 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 5, z - 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 0, y + 5, z + 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 0, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 1, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 1, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 1, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 2, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 2, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 2, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 3, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 3, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 3, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 3, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 3, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 4, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 4, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 4, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 4, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 5, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 5, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 6, z - 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 1, y + 6, z + 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 2, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 3, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 3, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 3, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 4, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 4, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 4, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 5, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 5, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 5, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 5, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 6, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 6, z + 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 7, z - 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 2, y + 7, z + 3, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 3, y + 4, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 3, y + 5, z + 0, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 3, y + 6, z - 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 3, y + 6, z + 1, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 3, y + 7, z - 2, ZenScape.blockZenLeaves, 5, 3);
+		world.setBlock(x + 3, y + 7, z + 2, ZenScape.blockZenLeaves, 5, 3);
 	}
 	
 	private void setBlockIfAir(World world, int x, int y, int z, Block block, int metadata, int flag) {

@@ -47,12 +47,10 @@ public class ClientProxy extends CommonProxy {
 		BlockWaterTorch.renderId = RenderingRegistry.getNextAvailableRenderId();
 		BlockDokuPot.renderId = RenderingRegistry.getNextAvailableRenderId();
 		BlockZenLily.renderId = RenderingRegistry.getNextAvailableRenderId();
-		BlockJoker.renderId = RenderingRegistry.getNextAvailableRenderId();
 		
 		RenderingRegistry.registerBlockHandler(new RenderWaterTorch());
 		RenderingRegistry.registerBlockHandler(new RenderDokuPot());
 		RenderingRegistry.registerBlockHandler(new RenderZenLily());
-		RenderingRegistry.registerBlockHandler(new RenderJoker());
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityFruitBomb.class, new RenderFruitBomb());
 		

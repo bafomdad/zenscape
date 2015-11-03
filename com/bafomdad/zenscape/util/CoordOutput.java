@@ -26,13 +26,11 @@ public class CoordOutput {
 						{
 							if (meta > 0)
 							{
-//								f0.write("world.setBlock(x + " + i + ", y + " + j + ", z + " + k + ", " + block.getUnlocalizedName().substring(5) + ", " + meta + ", 3);");
 								f0.write("world.setBlock(x + " + i + ", y + " + j + ", z + " + k + ", " + Block.blockRegistry.getNameForObject(block) + ", " + meta + ", 3);");
 								f0.write(newLine);
 							}
 							else
 							{
-//								f0.write("world.setBlock(x + " + i + ", y + " + j + ", z + " + k + ", " + block.getUnlocalizedName().substring(5) + ");");
 								f0.write("world.setBlock(x + " + i + ", y + " + j + ", z + " + k + ", " + Block.blockRegistry.getNameForObject(block) + ");");
 								f0.write(newLine);
 							}
@@ -42,6 +40,5 @@ public class CoordOutput {
 			}
 		}
 		f0.close();
-		System.out.println("Coordinates written to output file.");
 	}
 }
