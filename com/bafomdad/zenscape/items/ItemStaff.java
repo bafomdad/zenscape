@@ -65,6 +65,7 @@ public class ItemStaff extends Item {
 				{
 					try {
 						new CoordOutput().outputFile(world, x, y, z, meta * 2);
+						player.addChatMessage(new ChatComponentTranslation("Coordinates written to output.txt"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

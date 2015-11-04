@@ -1,11 +1,11 @@
 package com.bafomdad.zenscape.proxies;
 
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+
+import org.lwjgl.input.Mouse;
 
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.blocks.BlockClayPot;
@@ -13,9 +13,9 @@ import com.bafomdad.zenscape.blocks.BlockCraftBox;
 import com.bafomdad.zenscape.blocks.BlockCraftTree;
 import com.bafomdad.zenscape.blocks.BlockDokuPot;
 import com.bafomdad.zenscape.blocks.BlockFruitBomb;
+import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockJoker;
 import com.bafomdad.zenscape.blocks.BlockSkybeam;
-import com.bafomdad.zenscape.blocks.BlockTestGear;
 import com.bafomdad.zenscape.blocks.BlockWaterTorch;
 import com.bafomdad.zenscape.blocks.BlockZenLily;
 import com.bafomdad.zenscape.entity.EntityDokuDrop;
@@ -26,9 +26,9 @@ import com.bafomdad.zenscape.render.RenderCraftBox;
 import com.bafomdad.zenscape.render.RenderCraftTree;
 import com.bafomdad.zenscape.render.RenderDokuPot;
 import com.bafomdad.zenscape.render.RenderFruitBomb;
+import com.bafomdad.zenscape.render.RenderGearLog;
 import com.bafomdad.zenscape.render.RenderJoker;
 import com.bafomdad.zenscape.render.RenderSkybeam;
-import com.bafomdad.zenscape.render.RenderTestGear;
 import com.bafomdad.zenscape.render.RenderWaterTorch;
 import com.bafomdad.zenscape.render.RenderZenLily;
 
@@ -56,7 +56,7 @@ public class ClientProxy extends CommonProxy {
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockFruitBomb.TileEntityFruitBomb.class, new BlockFruitBomb.TileEntityFruitBombRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftTree.TileCraftTree.class, new RenderCraftTree());
-		ClientRegistry.bindTileEntitySpecialRenderer(BlockTestGear.TileTestGear.class, new RenderTestGear());		
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockGearLog.TileGearLog.class, new RenderGearLog());		
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockClayPot.TileClayPot.class, new RenderClayPot());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockClayPot.TileClayPotDeco.class, new RenderClayPot());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftBox.TileCraftBox.class, new RenderCraftBox());

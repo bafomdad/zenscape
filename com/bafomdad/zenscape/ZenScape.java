@@ -63,6 +63,7 @@ public class ZenScape {
 	public static Block blockZenLog;
 	public static Block blockZenLog2;
 	public static Block blockZenLog3;
+	public static Block blockGearLog;
 	public static Block blockZenSapling;
 	public static Block blockZenLeaves;
 	public static Block blockWaterTorch;
@@ -81,7 +82,6 @@ public class ZenScape {
 	public static Block slab;
 	public static Block double_slab;
 	public static Block blockCaveTrap;
-	public static Block blockTestGear;
 	public static Block blockClayPot;
 	public static Block blockSeer;
 	public static Block blockSpawnBlock;
@@ -268,6 +268,10 @@ public class ZenScape {
 		blockZenLog2 = new BlockZenLog2(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "zenlog2").setBlockTextureName("zenscape:log").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLog2, BlockZenLog2.ItemZenscapeLog2.class, "zenscape" + getSafeUnlocalizedName(blockZenLog2));
 		
+		blockGearLog = new BlockGearLog(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeStone).setBlockName("zenscape" + "." + "gearlog").setCreativeTab(zenscapeTab);
+		GameRegistry.registerBlock(blockGearLog, "zenscape" + getSafeUnlocalizedName(blockGearLog));
+		GameRegistry.registerTileEntity(BlockGearLog.TileGearLog.class, "tileGearLog");
+		
 		blockZenLog3 = new BlockZenLog3(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "zenlog3").setBlockTextureName("zenscape:log").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLog3, BlockZenLog3.ItemZenscapeLog3.class, "zenscape" + getSafeUnlocalizedName(blockZenLog3));
 		
@@ -305,10 +309,6 @@ public class ZenScape {
 		
 		blockCaveTrap = new BlockCaveTrap(Material.rock).setStepSound(Block.soundTypeStone).setHardness(1.0F).setBlockName("zenscape" + "." + "cavetrap").setBlockTextureName("zenscape:cavetrap").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockCaveTrap, "zenscape" + getSafeUnlocalizedName(blockCaveTrap));
-		
-		blockTestGear = new BlockTestGear(Material.iron).setStepSound(Block.soundTypeMetal).setHardness(5.0F).setBlockName("zenscape" + "." + "gearblock").setBlockTextureName("zenscape:nullicon").setCreativeTab(zenscapeTab);
-		GameRegistry.registerBlock(blockTestGear, "zenscape" + getSafeUnlocalizedName(blockTestGear));
-		GameRegistry.registerTileEntity(BlockTestGear.TileTestGear.class, "tileEntityTestGear");
 		
 		blockClayPot = new BlockClayPot(Material.clay).setStepSound(Block.soundTypeStone).setHardness(0.1F).setBlockName("zenscape" + "." + "claypot").setBlockTextureName("hardened_clay").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockClayPot, BlockClayPot.ItemClayPot.class, "zenscape" + getSafeUnlocalizedName(blockClayPot));

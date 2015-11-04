@@ -1,10 +1,10 @@
 package com.bafomdad.zenscape.model;
 
-import com.bafomdad.zenscape.blocks.BlockTestGear;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
+
+import com.bafomdad.zenscape.blocks.BlockGearLog;
+import com.bafomdad.zenscape.blocks.BlockGearLog.TileGearLog;
 
 public class ModelTestGear extends ModelBase {
 	
@@ -22,7 +22,7 @@ public class ModelTestGear extends ModelBase {
 		setRotation(Shape1, 0F, 0F, 0F);
 	}
 
-	public void render(BlockTestGear.TileTestGear te, float f) {
+	public void render(BlockGearLog.TileGearLog te, float f) {
 
 		Shape1.render(f);
 	}
@@ -33,9 +33,4 @@ public class ModelTestGear extends ModelBase {
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
-
-//	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
-//		
-//		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-//	}
 }

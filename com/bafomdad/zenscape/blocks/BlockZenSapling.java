@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.bafomdad.zenscape.ZenScape;
-import com.bafomdad.zenscape.worldgen.WorldGenDeadTree;
 import com.bafomdad.zenscape.worldgen.trees.*;
 
 import cpw.mods.fml.relauncher.Side;
@@ -131,7 +130,7 @@ public class BlockZenSapling extends BlockBush {
 		}
 		else if (l == 7)
 		{
-			object = new WorldGenDeadTree();
+			object = new WorldGenGearTree();
 		}
 		else if (l == 8)
 		{

@@ -32,7 +32,7 @@ public class WorldGenJokerTree extends WorldGenerator {
 			int trunk = rand.nextInt(2) + 6;
 			
 			for (int treeBase = 0; treeBase <= trunk; treeBase++) {
-				world.setBlock(x, y + treeBase, z, ZenScape.blockZenLog3, 0, 3);
+				world.setBlock(x, y + treeBase, z, ZenScape.blockZenLog2, 3, 3);
 				
 				int leafStart = trunk - 1;
 				

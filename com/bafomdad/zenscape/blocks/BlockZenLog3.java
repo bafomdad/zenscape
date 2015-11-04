@@ -26,7 +26,7 @@ public class BlockZenLog3 extends BlockLog {
 
 	public IIcon[] icons;
 	public IIcon[] top;
-	public String[] textureNames = new String[] { "log_joker", "log_negawood" };
+	public String[] textureNames = new String[] { "log_negawood" };
 	
 	public BlockZenLog3(Material material) {
 		

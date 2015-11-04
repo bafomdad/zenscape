@@ -61,6 +61,21 @@ public class BlockJoker extends Block implements ITileEntityProvider {
     	return false;
     }
     
+	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+		
+		Block block = world.getBlock(x, y + 1, z);
+		int meta = world.getBlockMetadata(x, y + 1, z);
+		return ((block == ZenScape.blockZenLeaves) && (meta == 5));
+	}
+	
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+    	
+		if (!canPlaceBlockAt(world, x, y, z))
+		{
+			world.setBlockToAir(x, y, z);
+		}
+    }
+    
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
     
 		return;
