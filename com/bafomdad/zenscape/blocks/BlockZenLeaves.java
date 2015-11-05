@@ -25,7 +25,7 @@ import net.minecraftforge.common.IShearable;
 public class BlockZenLeaves extends BlockLeavesBase implements IShearable {
 	
 	public IIcon[] icons;
-	public String[] textureNames = new String[] { "leaves_lightning", "leaves_explosive", "leaves_poison", "leaves_flywood", "leaves_dizzy", "leaves_joker" };
+	public String[] textureNames = new String[] { "leaves_lightning", "leaves_explosive", "leaves_poison", "leaves_flywood", "leaves_dizzy", "leaves_joker", "leaves_gears" };
 
 	public BlockZenLeaves(Material material, boolean bool) {
 		

@@ -1,9 +1,14 @@
 package com.bafomdad.zenscape.blocks;
 
+import java.util.Random;
+
+import com.bafomdad.zenscape.ZenScape;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -56,9 +61,23 @@ public class BlockGearLog extends BlockLog implements ITileEntityProvider {
 		side = register.registerIcon("zenscape:log_gears");
 	}
 
-	public int damageDropped(int par1) {
+//	public int damageDropped(int par1) {
+//		
+//		return par1 & 0x3;
+//	}
+	
+	public boolean canSilkHarvest() {
 		
-		return par1 & 0x3;
+		return false;
+	}
+	public Item getItemDropped(int i, Random rand, int j) {
+		
+		return ZenScape.itemGear;
+	}
+	
+	public int quantityDropped(Random rand) {
+		
+		return rand.nextInt(2) + 1;
 	}
 
 	@Override

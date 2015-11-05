@@ -6,11 +6,11 @@ import net.minecraft.client.model.ModelRenderer;
 import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockGearLog.TileGearLog;
 
-public class ModelTestGear extends ModelBase {
+public class ModelGearLog extends ModelBase {
 	
 	ModelRenderer Shape1;
 
-	public ModelTestGear() {
+	public ModelGearLog() {
 		textureWidth = 64;
 		textureHeight = 32;
 

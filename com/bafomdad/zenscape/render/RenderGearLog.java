@@ -9,11 +9,11 @@ import org.lwjgl.opengl.GL11;
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockGearLog.TileGearLog;
-import com.bafomdad.zenscape.model.ModelTestGear;
+import com.bafomdad.zenscape.model.ModelGearLog;
 
 public class RenderGearLog extends TileEntitySpecialRenderer {
 
-	private ModelTestGear model = new ModelTestGear();
+	private ModelGearLog model = new ModelGearLog();
 	private ResourceLocation texture = new ResourceLocation(ZenScape.MOD_ID, "textures/model/gearlog.png");
 	
 	public void renderTileGear(TileGearLog te, double x, double y, double z, float f) {

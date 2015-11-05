@@ -1,18 +1,23 @@
 package com.bafomdad.zenscape.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -27,6 +32,23 @@ public class BlockZenLog2 extends BlockLog {
 	
 	public BlockZenLog2(Material material) {
 		
+		setTickRandomly(true);
+	}
+	
+	public void updateTick(World world, int x, int y, int z, Random rand) {
+		
+		world.scheduleBlockUpdate(x, y, z, this, 20);
+		EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().thePlayer;
+		if (!world.isRemote && player != null)
+		{
+			MovingObjectPosition mop = player.rayTrace(10, 1);
+			Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+			int meta = world.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ) & 3; 
+			if (block == this && meta == 2)
+			{
+				player.addPotionEffect(new PotionEffect(9, 100, 0));
+			}
+		}
 	}
 
 	@Override

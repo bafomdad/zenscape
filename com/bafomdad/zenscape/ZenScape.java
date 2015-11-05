@@ -71,7 +71,6 @@ public class ZenScape {
 	public static Block blockZenLily;
 	public static Block blockFruitBomb;
 	public static Block blockDokuPot;
-	public static Block blockDizzyBlock;
 	public static Block blockPowerLog;
 	public static Block blockGreenStairs;
 	public static Block blockRedStairs;
@@ -119,6 +118,7 @@ public class ZenScape {
 	public static Item itemCompost;
 	public static Item itemClayShovel;
 	public static Item itemCakePickaxe;
+	public static Item itemGear;
 	
 	public static ZenTextureStitch texGrassTop;
 	public static ZenTextureStitch texGrassSide;
@@ -240,6 +240,9 @@ public class ZenScape {
 		itemCakePickaxe = new ItemCakePickaxe(ToolMaterial.WOOD).setUnlocalizedName("zenscape" + "." + "cakepickaxe").setTextureName("zenscape:pickaxecake").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemCakePickaxe, "ItemCakePickaxe");
 		
+		itemGear = new ItemGear().setUnlocalizedName("zenscape" + "." + "itemgear").setTextureName("zenscape:itemgear").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemGear, "ItemGear");
+		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));
 		GameRegistry.registerTileEntity(BlockZenLily.TileVisibleLily.class, "tileVisibleLily");
@@ -293,9 +296,6 @@ public class ZenScape {
 		
 		blockDokuPot = new BlockDokuPot(Material.iron).setHardness(5.0F).setStepSound(Block.soundTypeMetal).setBlockName("zenscape" + "." + "dokupot").setBlockTextureName("zenscape:dokupot").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockDokuPot, "zenscape" + getSafeUnlocalizedName(blockDokuPot));
-		
-		blockDizzyBlock = new BlockDizzyBlock(Material.rock).setStepSound(Block.soundTypeStone).setHardness(3.0F).setBlockName("zenscape" + "." + "dizzyblock").setBlockTextureName("dizzy").setCreativeTab(zenscapeTab);
-		GameRegistry.registerBlock(blockDizzyBlock, "zenscape" + getSafeUnlocalizedName(blockDizzyBlock));
 		
 		blockPowerLog = new BlockPowerLog(Material.wood).setStepSound(Block.soundTypeWood).setHardness(2.0F).setBlockName("zenscape" + "." + "powerlog").setBlockTextureName("powerblock").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockPowerLog, "zenscape" + getSafeUnlocalizedName(blockPowerLog));
