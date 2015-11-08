@@ -1,6 +1,7 @@
 package com.bafomdad.zenscape.blocks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class BlockJoker extends Block implements ITileEntityProvider {
 		
 		if (!world.isRemote)
 		{
-			EntityPlayer player = world.getClosestPlayer(x, y, z, 7);
+			EntityPlayer player = world.getClosestPlayer(x, y, z, 10);
 			if (player != null && !player.capabilities.isCreativeMode) {
 				TileJoker tile = (TileJoker)world.getTileEntity(x, y, z);
 				if (tile != null && tile instanceof IInventory) {
@@ -107,6 +108,9 @@ public class BlockJoker extends Block implements ITileEntityProvider {
 		
 		Map<ItemStack, Integer> map = new HashMap<ItemStack, Integer>();
 		
+		ItemStack itemToSteal = null;
+		int slotToStealFrom = -1;
+		
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if (stack != null) {
@@ -114,15 +118,31 @@ public class BlockJoker extends Block implements ITileEntityProvider {
 			}
 		}
 		if (!map.isEmpty()) {
-			for (Map.Entry<ItemStack, Integer> entry : map.entrySet()) {
-				ItemStack key = entry.getKey();
-				int values = entry.getValue();
-				if (rand.nextInt(map.size()) == 0) {
-					player.inventory.setInventorySlotContents(values, null);
-					tile.setInventorySlotContents(0, key);
-					ZPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-					break;
-				}
+//			for (Map.Entry<ItemStack, Integer> entry : map.entrySet()) {
+//				ItemStack key = entry.getKey();
+//				int values = entry.getValue();
+//
+//				if (rand.nextInt(map.size()) == 0) {
+//					player.inventory.setInventorySlotContents(values, null);
+//					tile.setInventorySlotContents(0, key);
+//					ZPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+//					break;
+//				}
+//			}
+			List keys = new ArrayList(map.keySet());
+			Collections.shuffle(keys);
+				
+			for (Object o : keys) {
+				slotToStealFrom = map.get(o);
+				if (slotToStealFrom < keys.size() || slotToStealFrom < keys.size())
+					itemToSteal = (ItemStack)keys.get(slotToStealFrom);
+				break;
+			}
+			if (slotToStealFrom != -1 && itemToSteal != null)
+			{
+				player.inventory.setInventorySlotContents(slotToStealFrom, null);
+				tile.setInventorySlotContents(0, itemToSteal);
+				ZPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 			}
 		}
 	}

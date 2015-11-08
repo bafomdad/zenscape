@@ -1,4 +1,4 @@
-package com.bafomdad.zenscape.util;
+package com.bafomdad.zenscape.crafting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import com.bafomdad.zenscape.blocks.BlockPistonCrafter;
+import com.bafomdad.zenscape.util.ZSEventHandler;
 
 public class ZPadCrafting {
 

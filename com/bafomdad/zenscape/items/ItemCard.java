@@ -2,7 +2,7 @@ package com.bafomdad.zenscape.items;
 
 import java.util.List;
 
-import com.bafomdad.zenscape.util.ItemCardRecipe;
+import com.bafomdad.zenscape.crafting.ItemCardRecipe;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;

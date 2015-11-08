@@ -1,6 +1,6 @@
 package com.bafomdad.zenscape.proxies;
 
-import com.bafomdad.zenscape.util.ZCrafting;
+import com.bafomdad.zenscape.crafting.ZCrafting;
 
 public class CommonProxy {
 	

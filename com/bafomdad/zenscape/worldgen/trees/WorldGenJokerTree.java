@@ -41,9 +41,9 @@ public class WorldGenJokerTree extends WorldGenerator {
 				for (int i = -3; i <= 3; i++) {
 					for (int j = -3; j <= 3; j++) {
 						for (int k = leafStart; k <= leafStart + 5; k++) {
-							if (world.getBlock(x + i, y + (k - 1), z + j) != null && world.getBlock(x + i, y + (k - 1), z + j) == ZenScape.blockZenLeaves && world.getBlockMetadata(x + i, y + (k - 1), z + j) == 5)
+							if (world.getBlock(x + i, y + k, z + j) != null && world.getBlock(x + i, y + k, z + j) == ZenScape.blockZenLeaves && world.getBlockMetadata(x + i, y + k, z + j) == 5)
 							{
-								this.setBlockIfAir(world, x, y, z, ZenScape.blockJoker, 0, 3);
+								this.setBlockIfAir(world, x + i, y + (k - 1), z + j, ZenScape.blockJoker, 0, 3);
 							}
 						}
 					}

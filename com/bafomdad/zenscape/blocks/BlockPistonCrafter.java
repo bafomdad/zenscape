@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.bafomdad.zenscape.util.ZPistonCraft;
+import com.bafomdad.zenscape.crafting.ZPistonCraft;
 
 public class BlockPistonCrafter extends Block implements ITileEntityProvider {
 

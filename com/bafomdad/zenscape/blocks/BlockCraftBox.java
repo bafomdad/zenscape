@@ -3,7 +3,7 @@ package com.bafomdad.zenscape.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bafomdad.zenscape.util.ZCrafting;
+import com.bafomdad.zenscape.crafting.ZCrafting;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;

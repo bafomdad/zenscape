@@ -29,6 +29,7 @@ item.zenscape.vial_detrimindexta.name=Detrimindexta
 item.zenscape.vial_karvodailnirol.name=Karvodailnirol
 item.zenscape.compost.name=Compost Dust
 item.zenscape.itemgear.name=Wooden Gear
+item.zenscape.itemlilypadbag.name=Lilypad Bag
 
 # BLOCKS
 tile.zenscape.crafttree.name=Crafting Tree Tile

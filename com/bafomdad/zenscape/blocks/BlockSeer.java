@@ -1,5 +1,6 @@
 package com.bafomdad.zenscape.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -7,16 +8,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
-import com.bafomdad.zenscape.BlockZenScape;
 import com.bafomdad.zenscape.entity.FXSun;
 
 import cpw.mods.fml.relauncher.Side;
@@ -46,24 +44,12 @@ public class BlockSeer extends Block {
 				}
 				if (player.getCurrentEquippedItem().getItem() == Items.gold_ingot)
 				{
-					Chunk chunk = world.getChunkFromBlockCoords(x, z);
-					Block spawner = Blocks.mob_spawner;
-					
-					for (ExtendedBlockStorage storage : chunk.getBlockStorageArray())
-					{
-						if (storage != null)
+					List<TileEntity> list = world.loadedTileEntityList;
+					double closest = 1.7976931348623157E+308D;
+					for (TileEntity tile : list) {
+						if (tile instanceof TileEntityMobSpawner)
 						{
-							for (int i = 0; i < 16; ++i) {
-								for (int j = 0; j < 16; ++j) {
-									for (int k = 0; k < 16; ++k)
-									{
-										if (storage.getBlockByExtId(i, j, k) == spawner)
-										{
-											player.addChatComponentMessage(new ChatComponentTranslation("Dungeon: " + (x + i) + ", " + j + ", " + (z + k)));
-										}
-									}
-								}
-							}
+							player.addChatComponentMessage(new ChatComponentTranslation("Dungeon: " + tile.xCoord + ", " + tile.yCoord + ", " + tile.zCoord));
 						}
 					}
 				}

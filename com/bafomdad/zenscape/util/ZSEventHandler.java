@@ -4,33 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
-import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
 import com.bafomdad.zenscape.BlockZenScape;
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.blocks.BlockFruitBomb;
 import com.bafomdad.zenscape.blocks.BlockSpawnBlock;
+import com.bafomdad.zenscape.crafting.ZPadCrafting;
 import com.bafomdad.zenscape.items.ItemCard;
 import com.bafomdad.zenscape.render.ZenTextureStitch;
 
@@ -140,6 +134,20 @@ public class ZSEventHandler {
 				}
 			}
 			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onBlockPlaced(BlockEvent.PlaceEvent event) {
+		
+		ItemStack stack = event.player.inventory.getCurrentItem();
+		
+		if (stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.enchanting_table))
+		{
+			Blocks.double_plant.func_149889_c(event.world, event.x + 2, event.y, event.z, 4, 2);
+			Blocks.double_plant.func_149889_c(event.world, event.x - 2, event.y, event.z, 4, 2);
+			Blocks.double_plant.func_149889_c(event.world, event.x, event.y, event.z + 2, 4, 2);
+			Blocks.double_plant.func_149889_c(event.world, event.x, event.y, event.z - 2, 4, 2);
 		}
 	}
 }

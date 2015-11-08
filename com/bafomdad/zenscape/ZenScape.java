@@ -8,9 +8,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +21,10 @@ import org.apache.logging.log4j.Logger;
 import com.bafomdad.zenscape.blocks.*;
 import com.bafomdad.zenscape.blocks.BlockZenLog3.ItemZenscapeLog3;
 import com.bafomdad.zenscape.blocks.unobtainium.*;
+import com.bafomdad.zenscape.crafting.ZCrafting;
+import com.bafomdad.zenscape.crafting.ZEnchanter;
+import com.bafomdad.zenscape.crafting.ZPadCrafting;
+import com.bafomdad.zenscape.crafting.ZPistonCraft;
 import com.bafomdad.zenscape.entity.EntityDokuDrop;
 import com.bafomdad.zenscape.entity.EntityFruitBomb;
 import com.bafomdad.zenscape.entity.EntityPuffball;
@@ -26,10 +33,7 @@ import com.bafomdad.zenscape.items.*;
 import com.bafomdad.zenscape.proxies.CommonProxy;
 import com.bafomdad.zenscape.render.ZenTextureStitch;
 import com.bafomdad.zenscape.util.Dyes;
-import com.bafomdad.zenscape.util.ZCrafting;
 import com.bafomdad.zenscape.util.ZGuiHandler;
-import com.bafomdad.zenscape.util.ZPadCrafting;
-import com.bafomdad.zenscape.util.ZPistonCraft;
 import com.bafomdad.zenscape.util.ZSEventHandler;
 import com.bafomdad.zenscape.util.ZSTickHandler;
 import com.bafomdad.zenscape.worldgen.WorldGenDecorators;
@@ -119,6 +123,7 @@ public class ZenScape {
 	public static Item itemClayShovel;
 	public static Item itemCakePickaxe;
 	public static Item itemGear;
+	public static Item itemLilypadBag;
 	
 	public static ZenTextureStitch texGrassTop;
 	public static ZenTextureStitch texGrassSide;
@@ -150,6 +155,7 @@ public class ZenScape {
 		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenDecorators());
 //		FMLCommonHandler.instance().bus().register(new ZSTickHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ZGuiHandler());
+		RecipeSorter.register("zenscape:enchanter", ZEnchanter.class, Category.SHAPED, "");
 		
 		zenscapeTab = new CreativeTabs("zenscape" + ".creativeTab") {
 			
@@ -242,6 +248,9 @@ public class ZenScape {
 		
 		itemGear = new ItemGear().setUnlocalizedName("zenscape" + "." + "itemgear").setTextureName("zenscape:itemgear").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGear, "ItemGear");
+		
+		itemLilypadBag = new ItemLilypadBag().setUnlocalizedName("zenscape" + "." + "itemlilypadbag").setTextureName("zenscape:lilypadbag").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemLilypadBag, "ItemLilypadBag");
 		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));
@@ -409,6 +418,7 @@ public class ZenScape {
 		GameRegistry.addShapelessRecipe(new ItemStack(slab, 1, 7), new Object[] { new ItemStack(slab, 1, 6) });
 	
 		GameRegistry.addShapedRecipe(new ItemStack(itemGrafterNet, 1), new Object[] { "  t", " ts", "tss", 't', Items.stick, 's', Items.string });
+		GameRegistry.addShapedRecipe(new ItemStack(itemLilypadBag, 1), new Object[] { "LSL", "LPL", "LLL", 'L', Items.leather, 'S', Items.string, 'P', Blocks.waterlily });
 		GameRegistry.addShapedRecipe(new ItemStack(blockDokuPot, 1), new Object[] { "c c", "c c", "ccc", 'c', new ItemStack(Blocks.stained_hardened_clay, 0)});
 		GameRegistry.addShapedRecipe(new ItemStack(blockLightBlock, 1), new Object[] { " p ", "pip", " p ", 'p', itemLightPlate, 'i', Blocks.iron_block });
 		GameRegistry.addShapedRecipe(new ItemStack(blockGreenStairs, 4), new Object[] { "  G", " GG", "GGG", 'G', new ItemStack(ZenScape.blockZenBricks, 1, 0) });
@@ -449,6 +459,11 @@ public class ZenScape {
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 6, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Items.potionitem, 1, 8238) });
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 7, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.redstone_block), new ItemStack(Items.redstone) });
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 9, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(ZenScape.blockZenLily, 1, 4), new ItemStack(Items.ender_eye) });
+		
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 0)});
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 2)});
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 4)});
+		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 5)});
 		
 		GameRegistry.registerWorldGenerator(new WorldGenIslands(), 2);
 	}

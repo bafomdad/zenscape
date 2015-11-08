@@ -1,4 +1,4 @@
-package com.bafomdad.zenscape.util;
+package com.bafomdad.zenscape.crafting;
 
 import java.util.ArrayList;
 import java.util.List;

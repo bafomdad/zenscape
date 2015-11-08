@@ -1,4 +1,4 @@
-package com.bafomdad.zenscape.util;
+package com.bafomdad.zenscape.crafting;
 
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.items.ItemCard;
