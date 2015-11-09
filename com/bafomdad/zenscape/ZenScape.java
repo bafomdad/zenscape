@@ -155,7 +155,7 @@ public class ZenScape {
 		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenDecorators());
 //		FMLCommonHandler.instance().bus().register(new ZSTickHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ZGuiHandler());
-		RecipeSorter.register("zenscape:enchanter", ZEnchanter.class, Category.SHAPED, "");
+//		RecipeSorter.register("zenscape:enchanter", ZEnchanter.class, Category.SHAPED, "");
 		
 		zenscapeTab = new CreativeTabs("zenscape" + ".creativeTab") {
 			
@@ -419,6 +419,8 @@ public class ZenScape {
 	
 		GameRegistry.addShapedRecipe(new ItemStack(itemGrafterNet, 1), new Object[] { "  t", " ts", "tss", 't', Items.stick, 's', Items.string });
 		GameRegistry.addShapedRecipe(new ItemStack(itemLilypadBag, 1), new Object[] { "LSL", "LPL", "LLL", 'L', Items.leather, 'S', Items.string, 'P', Blocks.waterlily });
+		GameRegistry.addShapedRecipe(new ItemStack(itemCakePickaxe, 1), new Object[] { "CCC", " S ", " S ", 'C', Items.cake, 'S', Items.stick });
+		GameRegistry.addShapedRecipe(new ItemStack(itemClayShovel, 1), new Object[] { " C ", " S ", " S ", 'C', Blocks.hardened_clay, 'S', Items.stick });
 		GameRegistry.addShapedRecipe(new ItemStack(blockDokuPot, 1), new Object[] { "c c", "c c", "ccc", 'c', new ItemStack(Blocks.stained_hardened_clay, 0)});
 		GameRegistry.addShapedRecipe(new ItemStack(blockLightBlock, 1), new Object[] { " p ", "pip", " p ", 'p', itemLightPlate, 'i', Blocks.iron_block });
 		GameRegistry.addShapedRecipe(new ItemStack(blockGreenStairs, 4), new Object[] { "  G", " GG", "GGG", 'G', new ItemStack(ZenScape.blockZenBricks, 1, 0) });
@@ -460,10 +462,16 @@ public class ZenScape {
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 7, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.redstone_block), new ItemStack(Items.redstone) });
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 9, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(ZenScape.blockZenLily, 1, 4), new ItemStack(Items.ender_eye) });
 		
-		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 0)});
-		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 2)});
-		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 4)});
-		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 5)});
+		GameRegistry.addRecipe(new ZEnchanter());
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 0)});
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 2)});
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 4)});
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 5)});
+//		
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 0)});
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 2)});
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 4)});
+//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 5)});
 		
 		GameRegistry.registerWorldGenerator(new WorldGenIslands(), 2);
 	}

@@ -1,13 +1,19 @@
 package com.bafomdad.zenscape.items;
 
+import java.util.List;
+
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCakePickaxe extends ItemPickaxe {
 
@@ -16,6 +22,12 @@ public class ItemCakePickaxe extends ItemPickaxe {
 		super(toolmat);
 		this.setMaxDamage(240);
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		
+		list.add(EnumChatFormatting.GOLD + "This pick is pretty sweet.");
 	}
 	
 	@SubscribeEvent

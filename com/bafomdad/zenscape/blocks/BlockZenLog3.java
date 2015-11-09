@@ -13,6 +13,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -48,6 +49,8 @@ public class BlockZenLog3 extends BlockLog {
 								world.setBlock(x + i, y + j, z + k, ZenScape.blockDarkAir);
 							}
 							else if (world.getBlock(x + i, y + j, z + k) == Blocks.torch) {
+								EntityItem itemTorch = new EntityItem(world, x + i, y + j, z + k, new ItemStack(Blocks.torch));
+								world.spawnEntityInWorld(itemTorch);
 								world.setBlockToAir(x + i, y + j, z + k);
 							}
 						}
