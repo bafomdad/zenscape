@@ -462,16 +462,8 @@ public class ZenScape {
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 7, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.redstone_block), new ItemStack(Items.redstone) });
 		ZPadCrafting.addRecipe(ZenScape.blockZenLily, 9, new ItemStack[] { new ItemStack(Blocks.sapling, 1, 3), new ItemStack(ZenScape.blockZenLily, 1, 4), new ItemStack(Items.ender_eye) });
 		
+		ZEnchanter.init();
 		GameRegistry.addRecipe(new ZEnchanter());
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 0)});
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 2)});
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 4)});
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { " F ", "F#F", " F ", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 5)});
-//		
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 0)});
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 2)});
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 4)});
-//		GameRegistry.addShapedRecipe(new ItemStack(Blocks.enchanting_table), new Object[] { "F F", " # ", "F F", '#', new ItemStack(Blocks.enchanting_table), 'F', new ItemStack(Blocks.double_plant, 1, 5)});
 		
 		GameRegistry.registerWorldGenerator(new WorldGenIslands(), 2);
 	}

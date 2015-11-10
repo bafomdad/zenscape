@@ -59,11 +59,36 @@ public class ItemLilypadBag extends Item {
 		{
 			if (getBlockCount(stack) > 0)
 			{	
-				for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-					boolean hasRoom = player.inventory.getStackInSlot(i) == null;
+				int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.length];
+				Arrays.fill(counts, 0);
+				for (int i = 0; i < counts.length; i++) {
 					
-					if (hasRoom)
+					boolean hasItem = false;
+					boolean hasSpace = false;
+					
+					ItemStack playerStack = player.inventory.getStackInSlot(i);
+					
+					if (playerStack != null && playerStack.getItem() == Item.getItemFromBlock(Blocks.waterlily))
 					{
+						hasItem = true;
+						if ((playerStack.stackSize < playerStack.getMaxStackSize())) {
+							hasSpace = true;
+						}
+						if ((hasItem) && (hasSpace))
+						{
+							int space = Math.min(player.inventory.getInventoryStackLimit(), playerStack.getMaxStackSize() - playerStack.stackSize);
+							int mergeAmount = Math.min(space, getBlockCount(stack));
+							
+							ItemStack copy = playerStack.copy();
+							copy.stackSize += mergeAmount;
+							player.inventory.setInventorySlotContents(i, copy);
+							add(stack, -mergeAmount);
+							break;
+						}
+					}
+					else if (playerStack == null)
+					{
+						hasSpace = true;
 						if (getBlockCount(stack) < 64)
 						{
 							player.inventory.setInventorySlotContents(i, new ItemStack(Blocks.waterlily, getBlockCount(stack), 0));
@@ -80,28 +105,31 @@ public class ItemLilypadBag extends Item {
 				}
 			}
 		}
-		MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
-		if (movingobjectposition == null) 
+		if (getBlockCount(stack) > 0)
 		{
-			return stack;
-		}
-		if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-		{
-			int i = movingobjectposition.blockX;
-			int j = movingobjectposition.blockY;
-			int k = movingobjectposition.blockZ;
-			if (!world.canMineBlock(player, i, j, k))
+			MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
+			if (movingobjectposition == null) 
 			{
 				return stack;
 			}
-			if (!player.canPlayerEdit(i, j, k, movingobjectposition.sideHit, stack))
+			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
 			{
-				return stack;
-			}
-			if ((world.getBlock(i, j, k).getMaterial() == Material.water) && (world.getBlockMetadata(i, j, k) == 0) && (world.isAirBlock(i, j + 1, k)))
-			{
-				world.setBlock(i, j + 1, k, Blocks.waterlily);
-				add(stack, -1);
+				int i = movingobjectposition.blockX;
+				int j = movingobjectposition.blockY;
+				int k = movingobjectposition.blockZ;
+				if (!world.canMineBlock(player, i, j, k))
+				{
+					return stack;
+				}
+				if (!player.canPlayerEdit(i, j, k, movingobjectposition.sideHit, stack))
+				{
+					return stack;
+				}
+				if ((world.getBlock(i, j, k).getMaterial() == Material.water) && (world.getBlockMetadata(i, j, k) == 0) && (world.isAirBlock(i, j + 1, k)))
+				{
+					world.setBlock(i, j + 1, k, Blocks.waterlily);
+					add(stack, -1);
+				}
 			}
 		}
 		return stack;
