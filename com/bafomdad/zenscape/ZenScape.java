@@ -124,6 +124,7 @@ public class ZenScape {
 	public static Item itemCakePickaxe;
 	public static Item itemGear;
 	public static Item itemLilypadBag;
+	public static Item itemWoodStaff;
 	
 	public static ZenTextureStitch texGrassTop;
 	public static ZenTextureStitch texGrassSide;
@@ -251,6 +252,9 @@ public class ZenScape {
 		
 		itemLilypadBag = new ItemLilypadBag().setUnlocalizedName("zenscape" + "." + "itemlilypadbag").setTextureName("zenscape:lilypadbag").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemLilypadBag, "ItemLilypadBag");
+		
+		itemWoodStaff = new ItemWoodStaff().setUnlocalizedName("zenscape" + "." + "itemwoodstaff").setTextureName("zenscape:woodstaff").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemWoodStaff, "ItemWoodStaff");
 		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));

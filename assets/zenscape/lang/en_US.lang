@@ -30,6 +30,7 @@ item.zenscape.vial_karvodailnirol.name=Karvodailnirol
 item.zenscape.compost.name=Compost Dust
 item.zenscape.itemgear.name=Wooden Gear
 item.zenscape.itemlilypadbag.name=Lilypad Bag
+item.zenscape.itemwoodstaff.name=Wooden Staff
 
 # BLOCKS
 tile.zenscape.crafttree.name=Crafting Tree Tile

@@ -11,6 +11,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.bafomdad.zenscape.BlockZenScape;
 import com.bafomdad.zenscape.ZenScape;
@@ -26,6 +28,7 @@ import com.bafomdad.zenscape.blocks.BlockFruitBomb;
 import com.bafomdad.zenscape.blocks.BlockSpawnBlock;
 import com.bafomdad.zenscape.crafting.ZPadCrafting;
 import com.bafomdad.zenscape.items.ItemCard;
+import com.bafomdad.zenscape.libs.BlockLibs;
 import com.bafomdad.zenscape.render.ZenTextureStitch;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -142,12 +145,27 @@ public class ZSEventHandler {
 		
 		ItemStack stack = event.player.inventory.getCurrentItem();
 		
-		if (stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.enchanting_table))
-		{
-			Blocks.double_plant.func_149889_c(event.world, event.x + 2, event.y, event.z, 4, 2);
-			Blocks.double_plant.func_149889_c(event.world, event.x - 2, event.y, event.z, 4, 2);
-			Blocks.double_plant.func_149889_c(event.world, event.x, event.y, event.z + 2, 4, 2);
-			Blocks.double_plant.func_149889_c(event.world, event.x, event.y, event.z - 2, 4, 2);
+		if (stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.enchanting_table)) {
+			if (stack.hasTagCompound()) {
+				NBTTagCompound display = stack.stackTagCompound.getCompoundTag("display");
+				if (display.hasKey("Lore")) {
+					NBTTagList lore = display.getTagList("Lore", 8);
+					
+					for (int i = 0; i < lore.tagCount(); i++)
+					{
+						String s = lore.getStringTagAt(i).substring(2);
+						int flower = BlockLibs.getStackFromString(s);
+						
+						if (flower != -1)
+						{
+							Blocks.double_plant.func_149889_c(event.world, event.x + (i + 2), event.y, event.z + (i + 2), flower, 2);
+							Blocks.double_plant.func_149889_c(event.world, event.x - (i + 2), event.y, event.z - (i + 2), flower, 2);
+							Blocks.double_plant.func_149889_c(event.world, event.x - (i + 2), event.y, event.z + (i + 2), flower, 2);
+							Blocks.double_plant.func_149889_c(event.world, event.x + (i + 2), event.y, event.z - (i + 2), flower, 2);
+						}
+					}
+				}
+			}
 		}
 	}
 }
