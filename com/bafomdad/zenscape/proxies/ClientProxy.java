@@ -12,6 +12,7 @@ import com.bafomdad.zenscape.blocks.BlockClayPot;
 import com.bafomdad.zenscape.blocks.BlockCraftBox;
 import com.bafomdad.zenscape.blocks.BlockCraftTree;
 import com.bafomdad.zenscape.blocks.BlockDokuPot;
+import com.bafomdad.zenscape.blocks.BlockEnchanter;
 import com.bafomdad.zenscape.blocks.BlockFruitBomb;
 import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockJoker;
@@ -25,6 +26,7 @@ import com.bafomdad.zenscape.render.RenderClayPot;
 import com.bafomdad.zenscape.render.RenderCraftBox;
 import com.bafomdad.zenscape.render.RenderCraftTree;
 import com.bafomdad.zenscape.render.RenderDokuPot;
+import com.bafomdad.zenscape.render.RenderEnchanter;
 import com.bafomdad.zenscape.render.RenderFruitBomb;
 import com.bafomdad.zenscape.render.RenderGearLog;
 import com.bafomdad.zenscape.render.RenderJoker;
@@ -61,6 +63,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockClayPot.TileClayPotDeco.class, new RenderClayPot());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftBox.TileCraftBox.class, new RenderCraftBox());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockJoker.TileJoker.class, new RenderJoker());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockEnchanter.TileEnchanter.class, new RenderEnchanter());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockSkybeam.TileSkybeam.class, new RenderSkybeam());
 	}

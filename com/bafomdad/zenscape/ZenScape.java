@@ -61,7 +61,6 @@ public class ZenScape {
 	
 	public static Block blockCraftTree;
 	public static Block blockCraftBox;
-	public static Block blockNatureTree;
 	public static Block blockBlackMesa;
 	public static Block blockZenBricks;
 	public static Block blockZenLog;
@@ -101,6 +100,7 @@ public class ZenScape {
 	public static Block blockRAC;
 	public static Block blockJoker;
 	public static Block blockDarkAir;
+	public static Block blockEnchanter;
 	
 	public static Block blockSkybeam;
 	
@@ -115,7 +115,6 @@ public class ZenScape {
 	public static Item itemDokuDrop;
 	public static Item itemDokuBottle;
 	public static Item itemCard;
-//	public static Item itemSeer;
 	public static Item itemGoggles;
 	public static Item itemPuffshoot;
 	public static Item itemAlchemyBottles;
@@ -154,9 +153,8 @@ public class ZenScape {
 		proxy.init();
 		MinecraftForge.EVENT_BUS.register(new ZSEventHandler());
 		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenDecorators());
-//		FMLCommonHandler.instance().bus().register(new ZSTickHandler());
+		FMLCommonHandler.instance().bus().register(new ZSTickHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ZGuiHandler());
-//		RecipeSorter.register("zenscape:enchanter", ZEnchanter.class, Category.SHAPED, "");
 		
 		zenscapeTab = new CreativeTabs("zenscape" + ".creativeTab") {
 			
@@ -226,9 +224,6 @@ public class ZenScape {
 		itemCard = new ItemCard().setUnlocalizedName("zenscape" + "." + "card").setTextureName("card").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemCard, "ItemCard");
 		
-//		itemSeer = new ItemSeer().setUnlocalizedName("zenscape" + "." + "itemseer").setCreativeTab(zenscapeTab);
-//		GameRegistry.registerItem(itemSeer, "ItemSeer");
-		
 		itemGoggles = new ItemGlasses(ArmorMaterial.IRON, 0).setUnlocalizedName("zenscape" + "." + "goggles").setTextureName("zenscape:zengoggles").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGoggles, "ItemGoggles");
 		
@@ -268,9 +263,6 @@ public class ZenScape {
 		blockCraftBox = new BlockCraftBox(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "craftbox").setBlockTextureName("zenscape:craftbox_bottom").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockCraftBox, "zenscape" + getSafeUnlocalizedName(blockCraftBox));
 		GameRegistry.registerTileEntity(BlockCraftBox.TileCraftBox.class, "tileCraftBox");
-		
-		blockNatureTree = new BlockNatureTree(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "naturetree").setBlockTextureName("zenscape:naturetree").setCreativeTab(zenscapeTab);
-		GameRegistry.registerBlock(blockNatureTree, "zenscape" + getSafeUnlocalizedName(blockNatureTree));
 		
 		blockBlackMesa = new BlockBlackMesa(Material.iron).setHardness(5.0F).setStepSound(Block.soundTypeMetal).setBlockName("zenscape" + "." + "blackmesa").setBlockTextureName("blackmesa").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockBlackMesa, BlockBlackMesa.ItemBlackMesa.class, "zenscape" + getSafeUnlocalizedName(blockBlackMesa));
@@ -378,6 +370,10 @@ public class ZenScape {
 		blockDarkAir = new BlockDarkAir(Material.air).setBlockName("zenscape" + "." + "darkair").setBlockTextureName("zenscape:darkair");
 		GameRegistry.registerBlock(blockDarkAir, "blockDarkAir");
 		
+		blockEnchanter = new BlockEnchanter(Material.rock).setBlockName("zenscape" + "." + "enchanter").setCreativeTab(zenscapeTab);
+		GameRegistry.registerBlock(blockEnchanter, "blockEnchanter");
+		GameRegistry.registerTileEntity(BlockEnchanter.TileEnchanter.class, "tileEnchanter");
+		
 		GameRegistry.registerBlock(blockGreenStairs = new BlockZenStairs.BlockGreenStairs("zenscape.greenstairs", ZenScape.blockZenBricks, 0), "zenscape.greenstairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockRedStairs = new BlockZenStairs.BlockRedStairs("zenscape.redstairs", ZenScape.blockZenBricks, 4), "zenscape.redstairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockBlueStairs = new BlockZenStairs.BlockBlueStairs("zenscape.bluestairs", ZenScape.blockZenBricks, 8), "zenscape.bluestairs").setCreativeTab(zenscapeTab);
@@ -445,7 +441,6 @@ public class ZenScape {
 		EntityRegistry.registerModEntity(EntityFruitBomb.class, "FruitBomb", entityId++, this, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityDokuDrop.class, "ProjDokuDrop", entityId++, this, 48, 20, true);
 		EntityRegistry.registerModEntity(EntityPuffball.class, "ProjPuff", entityId++, this, 48, 20, true);
-//		EntityRegistry.registerModEntity(EntitySeer.class, "EntitySeer", entityId++, this, 64, 10, false);
 
 		ZCrafting.addRecipe(new ItemStack(ZenScape.blockZenSapling, 1, 8), new ItemStack[] { new ItemStack(Blocks.redstone_block), new ItemStack(Items.redstone), new ItemStack(Blocks.redstone_torch), new ItemStack(Blocks.log, 1, 2) });
 		ZCrafting.addRecipe(new ItemStack(ZenScape.blockZenSapling, 1, 2), new ItemStack[] { new ItemStack(Blocks.tnt), new ItemStack(Blocks.redstone_block), new ItemStack(Items.gunpowder), new ItemStack(Items.gunpowder) });

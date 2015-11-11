@@ -202,10 +202,6 @@ public class BlockChestSorter extends BlockContainer {
 				}
 			}
 		}
-		
-		private void findMatchingStack(IInventory inventory, ItemStack stack, int slot) {
-			
-		}
 	
 		@Override
 		public int getSizeInventory() {

@@ -128,6 +128,7 @@ tile.zenscape.bush.name=Yellow Bush
 tile.zenscape.coldlava.name=Cooling Magma
 tile.zenscape.gearlog.name=Gearwood Log
 tile.zenscape.blockSkybeam.name=Skybeam
+tile.zenscape.enchanter.name=Enchanter
 
 # INVISIBLE BLOCKS
 tile.zenscape.flywood.name=Flywood (Invisible)
