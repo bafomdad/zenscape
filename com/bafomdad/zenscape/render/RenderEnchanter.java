@@ -5,6 +5,7 @@ import java.awt.Color;
 import org.lwjgl.opengl.GL11;
 
 import com.bafomdad.zenscape.blocks.BlockEnchanter.TileEnchanter;
+import com.bafomdad.zenscape.model.ModelGearLog;
 import com.bafomdad.zenscape.util.ZSTickHandler;
 
 import net.minecraft.block.Block;
@@ -19,11 +20,14 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
 public class RenderEnchanter extends TileEntitySpecialRenderer {
 	
 	RenderBlocks renderBlocks = new RenderBlocks();
+	ModelGearLog cube = new ModelGearLog();
+	ResourceLocation texture = new ResourceLocation("textures/blocks/cauldron_inner.png");
 
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTicks) {
 		
@@ -49,13 +53,22 @@ public class RenderEnchanter extends TileEntitySpecialRenderer {
 		
 		double time = ZSTickHandler.ticksInGame + partialTicks;
 		
+		GL11.glPushMatrix();
+		float f5 = 0.0175F;
+		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+		GL11.glRotatef(0F + (float)time, 0F, 1F, 0F);
+		GL11.glRotatef(0F + (float)time * 0.125F, 1F, 0f, 0F);
+		bindTexture(texture);
+		cube.render(tile, f5);
+		GL11.glPopMatrix();
+		
 		for(int i = 0; i < enchanter.getSizeInventory(); i++) 
 		{
 			GL11.glPushMatrix();
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			GL11.glTranslatef(1F, 0.5F, 1F);
 			GL11.glRotatef(angles[i] + (float) time, 0F, 1F, 0F);
-			GL11.glTranslatef(2.25F, 0F, 0.5F);
+			GL11.glTranslatef(1.25F, 0F, 0.5F); // default 2.25F
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 //			GL11.glTranslated(0D, 0.15 * Math.sin((time + i * 10) / 5D), 0F);
 			

@@ -42,7 +42,14 @@ public class WorldGenDecorators {
 				if (event.world.isAirBlock(x, y, z) && event.world.getBlock(x, y - 1, z).getMaterial() == Material.lava)
 				{
 					event.world.setBlock(x, y, z, ZenScape.blockZenLily, 0, 2);
-//					System.out.println("Lava Lily generated at: " + x + ", " + y + ", " + z);
+					for (int i = -3; i <= 3; i++) {
+						for (int j = -3; j <= 3; j++)
+						{
+							if (event.world.isAirBlock(x + i, y, z + j) && event.world.getBlock(x + i, y - 1, z + j).getMaterial() == Material.lava)
+								if (event.world.rand.nextInt(5) == 0)
+									event.world.setBlock(x + i, y, z + j, ZenScape.blockZenLily, 0, 2);
+						}
+					}
 				}
 			}
 		}

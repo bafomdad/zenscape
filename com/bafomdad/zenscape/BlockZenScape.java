@@ -68,16 +68,11 @@ public class BlockZenScape extends Block {
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
 		
-		int meta = world.getBlockMetadata(x, y, z);
-		
-		if (meta == 0)
+		if (entity instanceof EntityPlayer)
 		{
-			if (entity instanceof EntityPlayer)
-			{
-				EntityPlayer player = (EntityPlayer)entity;
-				if (player.inventory.armorItemInSlot(3) == null || (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() != ZenScape.itemGoggles))
-					return;
-			}
+			EntityPlayer player = (EntityPlayer)entity;
+			if (player.inventory.armorItemInSlot(3) == null || (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() != ZenScape.itemGoggles))
+				return;
 		}
 		super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
 	}

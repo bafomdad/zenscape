@@ -141,7 +141,6 @@ public class BlockEnchanter extends BlockContainer {
     	
     	if (!this.canBlockStay(world, x, y, z)) {
     		world.setBlockToAir(x, y, z);
-    		world.createExplosion(null, (int)x, (int)y, (int)z, 3.0F, false);
     	}
     }
     
@@ -167,7 +166,6 @@ public class BlockEnchanter extends BlockContainer {
 	public static class TileEnchanter extends TileEntityZenScape implements ISidedInventory {
 		
 		private ItemStack[] inventory;
-		private int timer = 120;
 		
 		public TileEnchanter() {
 			
@@ -176,20 +174,22 @@ public class BlockEnchanter extends BlockContainer {
 		
 		public void updateEntity() {
 			
-			if (timer % 10 == 0) {
-				for (int i = 0; i < this.getSizeInventory(); i++) {
-					if (this.getStackInSlot(i) != null) {
-						continue;
-					}
+			boolean flag = false;
+			
+			for (int i = 0; i < this.getSizeInventory(); i++) {
+				if (this.getStackInSlot(i) == null) {
+					flag = true;
 				}
+			}
+			if (flag)
+			{
 				List<EntityItem> entities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(this.xCoord - 5, this.yCoord - 5, this.zCoord - 5, this.xCoord + 5, this.yCoord + 5, this.zCoord + 5));
 				for (EntityItem eb : entities) {
 					if (eb != null && eb.getEntityItem().getItem() == Items.writable_book || eb.getEntityItem().getItem() instanceof ItemTool || eb.getEntityItem().getItem() instanceof ItemArmor)
 					{
-						this.setMotionFromVector(eb, new Vector3(this.xCoord, this.yCoord, this.zCoord), 0.45F);
+						this.setMotionFromVector(eb, new Vector3(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5), 0.45F);
 					}
 				}
-				timer = 120;
 			}
 		}
 		
@@ -277,8 +277,7 @@ public class BlockEnchanter extends BlockContainer {
 		@Override
 		public int[] getAccessibleSlotsFromSide(int side) {
 
-			return new int[0];
-//			return null;
+			return null;
 		}
 
 		@Override

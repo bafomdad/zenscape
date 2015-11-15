@@ -5,8 +5,6 @@ import java.util.Random;
 
 import com.bafomdad.zenscape.ZenScape;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.IGrowable;
@@ -19,15 +17,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockZenLog3 extends BlockLog {
 
 	public IIcon[] icons;
 	public IIcon[] top;
-	public String[] textureNames = new String[] { "log_negawood" };
+	public String[] textureNames = new String[] { "log_negawood", "log_copycat" };
 	
 	public BlockZenLog3(Material material) {
 		
@@ -36,11 +34,11 @@ public class BlockZenLog3 extends BlockLog {
 	
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		
+		int meta = world.getBlockMetadata(x, y, z) & 0x3;
 		int radius = 5;
 		
-		world.scheduleBlockUpdate(x, y, z, this, 100);
-		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == 1) {
+		if (meta == 0) {
+			world.scheduleBlockUpdate(x, y, z, this, 100);
 			for (int i = -radius; i <= radius; i++) {
 				for (int j = -radius; j <= radius; j++) {
 					for (int k = -radius; k <= radius; k++) {
@@ -48,7 +46,7 @@ public class BlockZenLog3 extends BlockLog {
 							if (world.isAirBlock(x + i, y + j, z + k) && !(world.getBlock(x + i, y + j - 1, z + k) instanceof IGrowable) && world.getBlockLightValue(x + i, y + j, z + k) >= 3) {
 								world.setBlock(x + i, y + j, z + k, ZenScape.blockDarkAir);
 							}
-							else if (world.getBlock(x + i, y + j, z + k) == Blocks.torch) {
+							else if (world.getBlock(x+ i, y + j, z + k) == Blocks.torch) {
 								EntityItem itemTorch = new EntityItem(world, x + i, y + j, z + k, new ItemStack(Blocks.torch));
 								world.spawnEntityInWorld(itemTorch);
 								world.setBlockToAir(x + i, y + j, z + k);
@@ -95,7 +93,6 @@ public class BlockZenLog3 extends BlockLog {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	@Override
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
 		
 		for (int i = 0; i < 4; i++)

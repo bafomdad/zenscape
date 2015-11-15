@@ -2,6 +2,7 @@ package com.bafomdad.zenscape.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockGearLog.TileGearLog;
@@ -22,7 +23,7 @@ public class ModelGearLog extends ModelBase {
 		setRotation(Shape1, 0F, 0F, 0F);
 	}
 
-	public void render(BlockGearLog.TileGearLog te, float f) {
+	public void render(TileEntity te, float f) {
 
 		Shape1.render(f);
 	}

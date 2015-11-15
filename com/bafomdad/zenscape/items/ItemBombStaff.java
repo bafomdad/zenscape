@@ -10,7 +10,6 @@ public class ItemBombStaff extends Item {
 
 	public ItemBombStaff() {
 		
-		super();
 		setMaxStackSize(1);
 	}
 	

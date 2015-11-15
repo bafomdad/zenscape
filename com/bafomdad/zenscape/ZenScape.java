@@ -32,12 +32,16 @@ import com.bafomdad.zenscape.entity.EntitySeer;
 import com.bafomdad.zenscape.items.*;
 import com.bafomdad.zenscape.proxies.CommonProxy;
 import com.bafomdad.zenscape.render.ZenTextureStitch;
+import com.bafomdad.zenscape.util.CopyCatHandler;
 import com.bafomdad.zenscape.util.Dyes;
 import com.bafomdad.zenscape.util.ZGuiHandler;
 import com.bafomdad.zenscape.util.ZSEventHandler;
 import com.bafomdad.zenscape.util.ZSTickHandler;
 import com.bafomdad.zenscape.worldgen.WorldGenDecorators;
+import com.bafomdad.zenscape.worldgen.WorldGenDownUnder;
 import com.bafomdad.zenscape.worldgen.WorldGenIslands;
+import com.bafomdad.zenscape.worldgen.WorldGenNether;
+import com.bafomdad.zenscape.worldgen.WorldGenOcean;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -101,6 +105,8 @@ public class ZenScape {
 	public static Block blockJoker;
 	public static Block blockDarkAir;
 	public static Block blockEnchanter;
+	public static Block blockCopyCat;
+	public static Block blockAirBubble;
 	
 	public static Block blockSkybeam;
 	
@@ -124,6 +130,8 @@ public class ZenScape {
 	public static Item itemGear;
 	public static Item itemLilypadBag;
 	public static Item itemWoodStaff;
+	public static Item itemDemoRock;
+	public static Item itemGravRing;
 	
 	public static ZenTextureStitch texGrassTop;
 	public static ZenTextureStitch texGrassSide;
@@ -152,6 +160,7 @@ public class ZenScape {
 		logger.info("Begin Pre-initialization");
 		proxy.init();
 		MinecraftForge.EVENT_BUS.register(new ZSEventHandler());
+		MinecraftForge.EVENT_BUS.register(new CopyCatHandler());
 		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenDecorators());
 		FMLCommonHandler.instance().bus().register(new ZSTickHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ZGuiHandler());
@@ -251,6 +260,12 @@ public class ZenScape {
 		itemWoodStaff = new ItemWoodStaff().setUnlocalizedName("zenscape" + "." + "itemwoodstaff").setTextureName("zenscape:woodstaff").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemWoodStaff, "ItemWoodStaff");
 		
+		itemDemoRock = new ItemDemoRock().setUnlocalizedName("zenscape" + "." + "itemdemorock").setTextureName("zenscape:demorock").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemDemoRock, "ItemDemoRock");
+		
+		itemGravRing = new ItemGravRing().setUnlocalizedName("zenscape" + "." + "itemgravring").setTextureName("zenscape:gravelring").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemGravRing, "ItemGravRing");
+		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));
 		GameRegistry.registerTileEntity(BlockZenLily.TileVisibleLily.class, "tileVisibleLily");
@@ -276,12 +291,12 @@ public class ZenScape {
 		blockZenLog2 = new BlockZenLog2(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "zenlog2").setBlockTextureName("zenscape:log").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLog2, BlockZenLog2.ItemZenscapeLog2.class, "zenscape" + getSafeUnlocalizedName(blockZenLog2));
 		
+		blockZenLog3 = new BlockZenLog3(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "zenlog3").setBlockTextureName("zenscape:log").setCreativeTab(zenscapeTab);
+		GameRegistry.registerBlock(blockZenLog3, BlockZenLog3.ItemZenscapeLog3.class, "zenscape" + getSafeUnlocalizedName(blockZenLog3));
+		
 		blockGearLog = new BlockGearLog(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeStone).setBlockName("zenscape" + "." + "gearlog").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockGearLog, "zenscape" + getSafeUnlocalizedName(blockGearLog));
 		GameRegistry.registerTileEntity(BlockGearLog.TileGearLog.class, "tileGearLog");
-		
-		blockZenLog3 = new BlockZenLog3(Material.wood).setHardness(2.0F).setStepSound(Block.soundTypeWood).setBlockName("zenscape" + "." + "zenlog3").setBlockTextureName("zenscape:log").setCreativeTab(zenscapeTab);
-		GameRegistry.registerBlock(blockZenLog3, BlockZenLog3.ItemZenscapeLog3.class, "zenscape" + getSafeUnlocalizedName(blockZenLog3));
 		
 		blockZenSapling = new BlockZenSapling(Material.plants).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zensapling").setBlockTextureName("zenscape:sapling").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenSapling, BlockZenSapling.ItemZenscapeSapling.class, "zenscape" + getSafeUnlocalizedName(blockZenSapling));
@@ -370,9 +385,16 @@ public class ZenScape {
 		blockDarkAir = new BlockDarkAir(Material.air).setBlockName("zenscape" + "." + "darkair").setBlockTextureName("zenscape:darkair");
 		GameRegistry.registerBlock(blockDarkAir, "blockDarkAir");
 		
-		blockEnchanter = new BlockEnchanter(Material.rock).setBlockName("zenscape" + "." + "enchanter").setCreativeTab(zenscapeTab);
+		blockEnchanter = new BlockEnchanter(Material.rock).setBlockName("zenscape" + "." + "enchanter");
 		GameRegistry.registerBlock(blockEnchanter, "blockEnchanter");
 		GameRegistry.registerTileEntity(BlockEnchanter.TileEnchanter.class, "tileEnchanter");
+		
+		blockCopyCat = new BlockCopyCat(Material.wood).setBlockName("zenscape" + "." + "copycat").setCreativeTab(zenscapeTab);
+		GameRegistry.registerBlock(blockCopyCat, "blockCopyCat");
+		GameRegistry.registerTileEntity(BlockCopyCat.TileCopyCat.class, "tileCopyCat");
+		
+		blockAirBubble = new BlockAirBubble(Material.rock).setBlockName("zenscape" + "." + "airbubble").setBlockTextureName("zenscape:zenbrick11").setCreativeTab(zenscapeTab);
+		GameRegistry.registerBlock(blockAirBubble, "blockAirBubble");
 		
 		GameRegistry.registerBlock(blockGreenStairs = new BlockZenStairs.BlockGreenStairs("zenscape.greenstairs", ZenScape.blockZenBricks, 0), "zenscape.greenstairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockRedStairs = new BlockZenStairs.BlockRedStairs("zenscape.redstairs", ZenScape.blockZenBricks, 4), "zenscape.redstairs").setCreativeTab(zenscapeTab);
@@ -464,7 +486,10 @@ public class ZenScape {
 		ZEnchanter.init();
 		GameRegistry.addRecipe(new ZEnchanter());
 		
+		GameRegistry.registerWorldGenerator(new WorldGenDownUnder(), 2);
 		GameRegistry.registerWorldGenerator(new WorldGenIslands(), 2);
+		GameRegistry.registerWorldGenerator(new WorldGenNether(), 2);
+		GameRegistry.registerWorldGenerator(new WorldGenOcean(), 2);
 	}
 	
 	@Mod.EventHandler
