@@ -39,7 +39,7 @@ public class WorldGenHungerTree extends WorldGenerator {
 							{
 								world.setBlock(x + k, y + j, z + l, ZenScape.blockZenLeaves, 8, 3);
 							}
-							if (rand.nextInt(10) == 0 && world.isAirBlock(x + k, y + j - 1, z + l))
+							if (rand.nextInt(20) == 0 && world.isAirBlock(x + k, y + j - 1, z + l))
 							{
 								world.setBlock(x + k, y + j - 1, z + l, ZenScape.blockPotion);
 							}

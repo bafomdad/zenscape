@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -133,6 +134,8 @@ public class ZenScape {
 	public static Item itemWoodStaff;
 	public static Item itemDemoRock;
 	public static Item itemGravRing;
+	
+	public static ItemFood itemDietPills;
 	
 	public static ZenTextureStitch texGrassTop;
 	public static ZenTextureStitch texGrassSide;
@@ -266,6 +269,9 @@ public class ZenScape {
 		
 		itemGravRing = new ItemGravRing().setUnlocalizedName("zenscape" + "." + "itemgravring").setTextureName("zenscape:gravelring").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGravRing, "ItemGravRing");
+		
+		itemDietPills = (ItemFood)new ItemFood(-4, 0, false).setUnlocalizedName("zenscape" + "." + "dietpills").setTextureName("zenscape:dietpills").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemDietPills, "ItemDietPills");
 		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));
@@ -424,7 +430,8 @@ public class ZenScape {
 		GameRegistry.addShapelessRecipe(new ItemStack(blockZenSapling, 1, 2), new Object[] { Blocks.sapling, Blocks.tnt });
 		GameRegistry.addShapelessRecipe(new ItemStack(blockBlackMesa, 4), new Object[] { Dyes.LAPIS_LAZULI.createStack(1), Blocks.iron_block});
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.gunpowder, 5), new Object[] { ZenScape.blockFruitBomb});
-		GameRegistry.addShapelessRecipe(new ItemStack(ZenScape.itemCompost), new Object[] { Dyes.BONE_MEAL.createStack(), Dyes.CACTUS_GREEN.createStack() });
+		GameRegistry.addShapelessRecipe(new ItemStack(itemCompost), new Object[] { Dyes.BONE_MEAL.createStack(), Dyes.CACTUS_GREEN.createStack() });
+		GameRegistry.addShapelessRecipe(new ItemStack(itemDietPills, 3), new Object[] { new ItemStack(itemAlchemyBottles, 1, 6) });
 
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.potionitem, 1, 8196), new Object[] { ZenScape.itemDokuBottle, Items.fermented_spider_eye });
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.potionitem, 1, 8228), new Object[] { ZenScape.itemDokuBottle, Items.glowstone_dust, Items.fermented_spider_eye });

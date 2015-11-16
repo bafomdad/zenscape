@@ -65,7 +65,7 @@ public class BlockZenLog3 extends BlockLog {
 			if (player != null)
 			{
 				if (!player.isPotionActive(Potion.hunger))
-					player.addPotionEffect(new PotionEffect(Potion.hunger.id, 100, 3));
+					player.addPotionEffect(new PotionEffect(Potion.hunger.id, 100, 2));
 			}
 		}
 	}

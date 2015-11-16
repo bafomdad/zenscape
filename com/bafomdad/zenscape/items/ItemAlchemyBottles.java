@@ -46,7 +46,7 @@ public class ItemAlchemyBottles extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tabs, List list)
     {
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < bottleTypes.length; ++i)
         {
             list.add(new ItemStack(item, 1, i));
         }

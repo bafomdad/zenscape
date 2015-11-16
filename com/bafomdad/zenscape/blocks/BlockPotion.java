@@ -9,7 +9,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class BlockPotion extends Block {
@@ -18,6 +20,11 @@ public class BlockPotion extends Block {
 		
 		super(material);
 	}
+	
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
+    	
+    	return new ItemStack(ZenScape.itemAlchemyBottles, 1, 6);
+    }
 	
 	public int getRenderType() {
 		
@@ -66,6 +73,7 @@ public class BlockPotion extends Block {
     	
     	if (!this.canBlockStay(world, x, y, z)) {
     		world.setBlockToAir(x, y, z);
+    		this.dropBlockAsItem(world, x, y, z, new ItemStack(ZenScape.itemAlchemyBottles, 1, 6));
     	}
     }
 }
