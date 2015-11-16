@@ -12,10 +12,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -25,7 +28,7 @@ public class BlockZenLog3 extends BlockLog {
 
 	public IIcon[] icons;
 	public IIcon[] top;
-	public String[] textureNames = new String[] { "log_negawood", "log_copycat" };
+	public String[] textureNames = new String[] { "log_negawood", "log_copycat", "log_hunger" };
 	
 	public BlockZenLog3(Material material) {
 		
@@ -54,6 +57,15 @@ public class BlockZenLog3 extends BlockLog {
 						}
 					}
 				}
+			}
+		}
+		if (meta == 2) {
+			world.scheduleBlockUpdate(x, y, z, this, 100);
+			EntityPlayer player = world.getClosestPlayer(x, y, z, 6);
+			if (player != null)
+			{
+				if (!player.isPotionActive(Potion.hunger))
+					player.addPotionEffect(new PotionEffect(Potion.hunger.id, 100, 3));
 			}
 		}
 	}

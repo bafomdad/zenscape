@@ -14,7 +14,7 @@ import net.minecraft.util.IIcon;
 
 public class ItemAlchemyBottles extends Item {
 
-	public String[] bottleTypes = new String[] { "bottle_empty", "bottle_counteragent", "bottle_mixture", "vial_empty", "vial_detrimindexta", "vial_karvodailnirol" };
+	public String[] bottleTypes = new String[] { "bottle_empty", "bottle_counteragent", "bottle_mixture", "vial_empty", "vial_detrimindexta", "vial_karvodailnirol", "bottle_pills" };
 	public IIcon[] iconArray;
 	
 	public ItemAlchemyBottles() {

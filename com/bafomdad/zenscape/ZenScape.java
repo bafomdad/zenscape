@@ -107,6 +107,7 @@ public class ZenScape {
 	public static Block blockEnchanter;
 	public static Block blockCopyCat;
 	public static Block blockAirBubble;
+	public static Block blockPotion;
 	
 	public static Block blockSkybeam;
 	
@@ -395,6 +396,9 @@ public class ZenScape {
 		
 		blockAirBubble = new BlockAirBubble(Material.rock).setBlockName("zenscape" + "." + "airbubble").setBlockTextureName("zenscape:zenbrick11").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockAirBubble, "blockAirBubble");
+		
+		blockPotion = new BlockPotion(Material.plants).setBlockName("zenscape" + "." + "potionblock").setBlockTextureName("zenscape:blockpotion");
+		GameRegistry.registerBlock(blockPotion, "blockPotion");
 		
 		GameRegistry.registerBlock(blockGreenStairs = new BlockZenStairs.BlockGreenStairs("zenscape.greenstairs", ZenScape.blockZenBricks, 0), "zenscape.greenstairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockRedStairs = new BlockZenStairs.BlockRedStairs("zenscape.redstairs", ZenScape.blockZenBricks, 4), "zenscape.redstairs").setCreativeTab(zenscapeTab);

@@ -28,7 +28,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 public class BlockZenSapling extends BlockBush {
 	
 	public IIcon[] saplingIcon;
-	public String[] textureNames = new String[] { "sapling_lightning", "sapling_crafting", "sapling_explosive", "sapling_nature", "sapling_flywood", "sapling_poison", "sapling_dizzy", "sapling_gear", "sapling_uncharged", "sapling_joker" };
+	public String[] textureNames = new String[] { "sapling_lightning", "sapling_crafting", "sapling_explosive", "sapling_nature", "sapling_flywood", "sapling_poison", "sapling_dizzy", "sapling_gear", "sapling_uncharged", "sapling_joker", "sapling_hunger" };
 
 	public BlockZenSapling(Material material) {
 		
@@ -139,6 +139,10 @@ public class BlockZenSapling extends BlockBush {
 		else if (l == 9)
 		{
 			object = new WorldGenJokerTree();
+		}
+		else if (l == 10)
+		{
+			object = new WorldGenHungerTree();
 		}
 		else
 		{
