@@ -2,11 +2,18 @@ package com.bafomdad.zenscape.crafting;
 
 import java.util.ArrayList;
 
+import com.bafomdad.zenscape.blocks.BlockEnchanter.TileEnchanter;
+
 import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

@@ -57,7 +57,7 @@ public class RenderEnchanter extends TileEntitySpecialRenderer {
 		float f5 = 0.0175F;
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		GL11.glRotatef(0F + (float)time, 0F, 1F, 0F);
-		GL11.glRotatef(0F + (float)time * 0.125F, 1F, 0f, 0F);
+		GL11.glRotatef(0F + (float)time * 0.375F, 1F, 0f, 0F);
 		bindTexture(texture);
 		cube.render(tile, f5);
 		GL11.glPopMatrix();

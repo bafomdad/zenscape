@@ -67,17 +67,13 @@ public class BlockFruitBomb extends BlockContainerZenScape {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz) {
 		
-		if (!world.isRemote)
+		if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ZenScape.itemGrafterNet)
 		{
-			if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ZenScape.itemGrafterNet)
-			{
-				return false;
-			}
-			else
-			{
-				this.dropTheBass(world, x, y, z);
-			}
+			world.setBlockToAir(x, y, z);
+			player.inventory.addItemStackToInventory(new ItemStack(ZenScape.blockFruitBomb));
 		}
+		else
+			this.dropTheBass(world, x, y, z);
 		return false;
 	}
 	
@@ -116,10 +112,12 @@ public class BlockFruitBomb extends BlockContainerZenScape {
 
     public void dropTheBass(World world, int x, int y, int z) {
         
-    	world.setBlockToAir(x, y, z);
-    	EntityFruitBomb efb = new EntityFruitBomb(world, block, meta);
-   		efb.setPosition(x + 0.25, y - 0.56, z + 0.75);
-   		world.spawnEntityInWorld(efb);
+	    	if (!world.isRemote) {
+	    	world.setBlockToAir(x, y, z);
+	    	EntityFruitBomb efb = new EntityFruitBomb(world, block, meta);
+	   		efb.setPosition(x + 0.25, y - 0.56, z + 0.75);
+	   		world.spawnEntityInWorld(efb);
+    	}
     }
 /**
  * 

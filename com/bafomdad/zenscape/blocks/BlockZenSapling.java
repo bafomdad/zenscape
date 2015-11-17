@@ -104,49 +104,20 @@ public class BlockZenSapling extends BlockBush {
 		int j1 = 0;
 		boolean flag = false;
 		
-		if (l == 1)
+		switch(l)
 		{
-			object = new WorldGenCraftTree();
-		}
-		else if (l == 2)
-		{
-			object = new WorldGenBakuTree(true);
-		}
-		else if (l == 3)
-		{
-			object = new WorldGenNatureTree();
-		}
-		else if (l == 4)
-		{
-			object = new WorldGenFlyWood(false);
-		}
-		else if (l == 5)
-		{
-			object = new WorldGenDokuTree();
-		}
-		else if (l == 6)
-		{
-			object = new WorldGenDizzyTree();
-		}
-		else if (l == 7)
-		{
-			object = new WorldGenGearTree();
-		}
-		else if (l == 8)
-		{
-			object = new WorldGenLightningTree(false);
-		}
-		else if (l == 9)
-		{
-			object = new WorldGenJokerTree();
-		}
-		else if (l == 10)
-		{
-			object = new WorldGenHungerTree();
-		}
-		else
-		{
-			object = new WorldGenLightningTree(true);
+			case 0: object = new WorldGenLightningTree(true); break;
+			case 1: object = new WorldGenCraftTree(); break;
+			case 2: object = new WorldGenBakuTree(true); break;
+			case 3: object = new WorldGenNatureTree(); break;
+			case 4: object = new WorldGenFlyWood(false); break;
+			case 5: object = new WorldGenDokuTree(); break;
+			case 6: object = new WorldGenDizzyTree(); break;
+			case 7: object = new WorldGenGearTree(); break;
+			case 8: object = new WorldGenLightningTree(false); break;
+			case 9: object = new WorldGenJokerTree(); break;
+			case 10: object = new WorldGenHungerTree(); break;
+			default: world.setBlock(x, y, z, Blocks.deadbush); break;
 		}
 
         Block block = Blocks.air;

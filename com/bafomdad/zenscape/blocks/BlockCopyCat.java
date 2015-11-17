@@ -33,7 +33,6 @@ public class BlockCopyCat extends BlockContainer {
 		world.scheduleBlockUpdate(x, y, z, this, 100);
 		TileCopyCat tile = (TileCopyCat)world.getTileEntity(x, y, z);
 		
-		if (!tile.leftClick)
 		if (tile.rightClick(tile.fakePlayer, null, x, y, z + 1, 1))
 		{
 			ForgeEventFactory.onItemUseStart(tile.fakePlayer, null, 10);
@@ -91,7 +90,7 @@ public class BlockCopyCat extends BlockContainer {
 			boolean isAir = block.isAir(this.worldObj, blockX, blockY, blockZ);
 			if (isAir)
 				return false;
-			if (!isAir && block.onBlockActivated(this.worldObj, blockX, blockY, blockZ, fakePlayer, side, f, f1, f2))
+			if (!isAir && block.onBlockActivated(fakePlayer.worldObj, blockX, blockY, blockZ, fakePlayer, side, f, f1, f2))
 				return true;
 			return false;
 		}

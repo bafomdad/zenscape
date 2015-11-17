@@ -219,13 +219,13 @@ public class ZenScape {
 		itemSawTooth = new ItemSawtooth().setUnlocalizedName("zenscape" + "." + "sawtooth").setTextureName("zenscape:sawtooth").setCreativeTab(zenscapeTab); 
 		GameRegistry.registerItem(itemSawTooth, "ItemSawtooth");
 		
-		itemLightPlate = new ItemLightningPlate().setUnlocalizedName("zenscape" + "." + "lightningplate").setTextureName("zenscape:lightningplate").setCreativeTab(zenscapeTab); 
+		itemLightPlate = new Item().setUnlocalizedName("zenscape" + "." + "lightningplate").setTextureName("zenscape:lightningplate").setCreativeTab(zenscapeTab); 
 		GameRegistry.registerItem(itemLightPlate, "ItemLightningPlate");
 		
 		itemSolomonRing = new ItemSolomonRing().setUnlocalizedName("zenscape" + "." + "solomonring").setTextureName("zenscape:solomonring").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemSolomonRing, "ItemSolomonRing");
 		
-		itemGrafterNet = new ItemGrafterNet().setUnlocalizedName("zenscape" + "." + "grafternet").setTextureName("zenscape:net_grafter").setCreativeTab(zenscapeTab);
+		itemGrafterNet = new Item().setMaxStackSize(1).setUnlocalizedName("zenscape" + "." + "grafternet").setTextureName("zenscape:net_grafter").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGrafterNet, "ItemGrafterNet");
 		
 		itemDokuDrop = new ItemDokuDrop().setUnlocalizedName("zenscape" + "." + "dokudrop").setTextureName("zenscape:dokudrop");
@@ -246,7 +246,7 @@ public class ZenScape {
 		itemAlchemyBottles = new ItemAlchemyBottles().setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemAlchemyBottles, "ItemAlchemyBottles");
 		
-		itemCompost = new ItemCompost().setUnlocalizedName("zenscape" + "." + "compost").setTextureName("zenscape:compost").setCreativeTab(zenscapeTab);
+		itemCompost = new Item().setUnlocalizedName("zenscape" + "." + "compost").setTextureName("zenscape:compost").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemCompost, "ItemCompost");
 		
 		itemClayShovel = new ItemClayShovel(ToolMaterial.GOLD).setUnlocalizedName("zenscape" + "." + "clayshovel").setTextureName("zenscape:shovelclay").setCreativeTab(zenscapeTab);

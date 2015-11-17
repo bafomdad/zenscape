@@ -1,6 +1,7 @@
 package com.bafomdad.zenscape.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -41,7 +42,7 @@ public class ZSEventHandler {
 		
 		if ((event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) && event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z) == ZenScape.blockFruitBomb)
 		{
-			if (!event.entityPlayer.capabilities.isCreativeMode || event.entityPlayer.getCurrentEquippedItem() != null && event.entityPlayer.getCurrentEquippedItem() == new ItemStack(ZenScape.itemGrafterNet))
+			if (!event.entityPlayer.capabilities.isCreativeMode || event.entityPlayer.getCurrentEquippedItem() == null && event.entityPlayer.getCurrentEquippedItem() != new ItemStack(ZenScape.itemGrafterNet))
 			{
 				BlockFruitBomb bfb = (BlockFruitBomb)event.world.getBlock(event.x, event.y, event.z);
 				bfb.dropTheBass(event.world, event.x, event.y, event.z);

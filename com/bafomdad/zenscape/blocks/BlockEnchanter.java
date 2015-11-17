@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.bafomdad.zenscape.TileEntityZenScape;
 import com.bafomdad.zenscape.ZenScape;
+import com.bafomdad.zenscape.crafting.ZEnchanter;
 import com.bafomdad.zenscape.util.Vector3;
 import com.bafomdad.zenscape.util.ZPacketDispatcher;
 
@@ -13,6 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityBat;
@@ -62,14 +64,27 @@ public class BlockEnchanter extends BlockContainer {
 		return false;
 	}
     
-    @SuppressWarnings("unused")
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz) {
+		
+		if (!world.isRemote)
+		{
+			if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ZenScape.itemWoodStaff)
+			{
+				TileEnchanter tile = (TileEnchanter)world.getTileEntity(x, y, z);
+				tile.startEnchant();
+				return true;
+			}
+		}
+		return false;
+	}
+    
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
     	
     	if (!world.isRemote && entity != null) {
     		TileEnchanter tile = (TileEnchanter)world.getTileEntity(x, y, z);
     		if (entity instanceof EntityItem && entity.isEntityAlive()) {
     			ItemStack stack = ((EntityItem)entity).getEntityItem();
-    			if (stack != null && (stack.getItem() == Items.writable_book || stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor)) {
+    			if (stack != null && (stack.getItem() == Items.writable_book || ((stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor) && tile.acceptableItem(stack)))) {
     				for (int i = 0; i < tile.getSizeInventory(); i++)
     				{
     					ItemStack tileslot = tile.getStackInSlot(i);
@@ -80,9 +95,10 @@ public class BlockEnchanter extends BlockContainer {
     						tile.setInventorySlotContents(i, stack);
     						((EntityItem)entity).setDead();
     						ZPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+    						if ((stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor))
+    							tile.canAccept = false;
     						break;
     					}
-    					else return;
     				}
     			}
     		}
@@ -166,6 +182,7 @@ public class BlockEnchanter extends BlockContainer {
 	public static class TileEnchanter extends TileEntityZenScape implements ISidedInventory {
 		
 		private ItemStack[] inventory;
+		public boolean canAccept = true;
 		
 		public TileEnchanter() {
 			
@@ -185,12 +202,24 @@ public class BlockEnchanter extends BlockContainer {
 			{
 				List<EntityItem> entities = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(this.xCoord - 5, this.yCoord - 5, this.zCoord - 5, this.xCoord + 5, this.yCoord + 5, this.zCoord + 5));
 				for (EntityItem eb : entities) {
-					if (eb != null && eb.getEntityItem().getItem() == Items.writable_book || eb.getEntityItem().getItem() instanceof ItemTool || eb.getEntityItem().getItem() instanceof ItemArmor)
+					if (eb != null && eb.getEntityItem().getItem() == Items.writable_book || ((eb.getEntityItem().getItem() instanceof ItemTool || eb.getEntityItem().getItem() instanceof ItemArmor) && this.acceptableItem(eb.getEntityItem())))
 					{
 						this.setMotionFromVector(eb, new Vector3(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5), 0.45F);
 					}
 				}
 			}
+		}
+		
+		public boolean acceptableItem(ItemStack stack) {
+			
+			if (canAccept) {
+				if (stack.getTagCompound() != null) {
+					NBTTagList enchants = stack.getEnchantmentTagList();
+					if (enchants != null)
+						return true;
+				}
+			}
+			return false;
 		}
 		
 		private void setMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
@@ -204,6 +233,55 @@ public class BlockEnchanter extends BlockContainer {
 			entity.motionX = finalVector.x * modifier;
 			entity.motionY = finalVector.y * modifier;
 			entity.motionZ = finalVector.z * modifier;
+		}
+		
+		public void startEnchant() {
+			
+			ItemStack tool = null;
+			int bookCount = 0;
+			
+			for (int i = 0; i < this.getSizeInventory(); i++) {
+				ItemStack stack = this.getStackInSlot(i);
+				if (stack != null)
+				{
+					if (stack.getItem() == Items.writable_book)
+						bookCount++;
+					if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor)
+						tool = stack;
+				}
+			}
+			if (tool != null && bookCount > 0) {
+				NBTTagCompound enchTag;
+				NBTTagList enchants = tool.getEnchantmentTagList();
+				if (enchants.tagCount() > 0) {
+					for (int j = 0; j < enchants.tagCount(); j++) 
+					{
+						if (j + 1 <= bookCount)
+						{
+							enchTag = (NBTTagCompound)((NBTTagList)tool.getTagCompound().getTag("ench")).getCompoundTagAt(j);
+							outputBook(enchTag);
+							enchants.removeTag(j);
+							tool.setItemDamage(tool.getItemDamage() + 20);
+						}
+					}
+					if (enchants.tagCount() == 0)
+						tool.setTagCompound(null);
+				}
+			}
+		}
+		
+		private void outputBook(NBTTagCompound enchTag) {
+			
+			ItemStack outputBook = new ItemStack(Items.enchanted_book, 1);
+			
+			NBTTagCompound tag = new NBTTagCompound();
+			NBTTagList enchList = new NBTTagList();
+			enchList.appendTag(enchTag);
+			tag.setTag("ench", enchList);
+			outputBook.setTagCompound(tag);
+
+			EntityItem entityBook = new EntityItem(this.worldObj, this.xCoord + 0.5, this.yCoord + 1, this.zCoord + 0.5, outputBook);
+			this.worldObj.spawnEntityInWorld(entityBook);
 		}
 
 		@Override
