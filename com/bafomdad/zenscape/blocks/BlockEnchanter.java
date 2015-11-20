@@ -1,5 +1,6 @@
 package com.bafomdad.zenscape.blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -66,16 +67,48 @@ public class BlockEnchanter extends BlockContainer {
     
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz) {
 		
+		TileEnchanter tile = (TileEnchanter)world.getTileEntity(x, y, z);
+		
 		if (!world.isRemote)
 		{
 			if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ZenScape.itemWoodStaff)
 			{
-				TileEnchanter tile = (TileEnchanter)world.getTileEntity(x, y, z);
+				if (player.isSneaking())
+				{
+					dropItem(tile, player);
+					return true;
+				}
 				tile.startEnchant();
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	private void dropItem(TileEnchanter tile, EntityPlayer player) {
+		
+		ItemStack dropItem = null;
+		int slot = -1;
+		
+		for (int i = 0; i < tile.getSizeInventory(); i++)
+		{
+			ItemStack stack = tile.getStackInSlot(i);
+			if (stack != null)
+			{
+				System.out.println(stack);
+				dropItem = stack;
+				slot = i;
+				break;
+			}
+		}
+		if (dropItem != null && slot != -1)
+		{
+			EntityItem ei = new EntityItem(tile.getWorldObj(), player.posX, player.posY, player.posZ, dropItem);
+            if (dropItem.hasTagCompound())
+                ei.getEntityItem().setTagCompound((NBTTagCompound)dropItem.getTagCompound().copy());
+			player.worldObj.spawnEntityInWorld(ei);
+			tile.setInventorySlotContents(slot, null);
+		}
 	}
     
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
@@ -186,7 +219,7 @@ public class BlockEnchanter extends BlockContainer {
 		
 		public TileEnchanter() {
 			
-			this.inventory = new ItemStack[4];
+			this.inventory = new ItemStack[3];
 		}
 		
 		public void updateEntity() {
@@ -239,6 +272,7 @@ public class BlockEnchanter extends BlockContainer {
 			
 			ItemStack tool = null;
 			int bookCount = 0;
+			int toolSlot = -1;
 			
 			for (int i = 0; i < this.getSizeInventory(); i++) {
 				ItemStack stack = this.getStackInSlot(i);
@@ -246,26 +280,29 @@ public class BlockEnchanter extends BlockContainer {
 				{
 					if (stack.getItem() == Items.writable_book)
 						bookCount++;
-					if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor)
+					if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor) {
 						tool = stack;
+						toolSlot = i;
+					}
 				}
 			}
 			if (tool != null && bookCount > 0) {
 				NBTTagCompound enchTag;
 				NBTTagList enchants = tool.getEnchantmentTagList();
 				if (enchants.tagCount() > 0) {
-					for (int j = 0; j < enchants.tagCount(); j++) 
+					for (int j = 0; j <= enchants.tagCount(); ++j) 
 					{
-						if (j + 1 <= bookCount)
+						if (j < bookCount)
 						{
 							enchTag = (NBTTagCompound)((NBTTagList)tool.getTagCompound().getTag("ench")).getCompoundTagAt(j);
 							outputBook(enchTag);
 							enchants.removeTag(j);
-							tool.setItemDamage(tool.getItemDamage() + 20);
+							tool.setItemDamage(tool.getItemDamage() + worldObj.rand.nextInt(20) + 20);
 						}
 					}
-					if (enchants.tagCount() == 0)
-						tool.setTagCompound(null);
+					if (enchants.tagCount() == 0) {
+						chuckToolOut(tool, toolSlot);
+					}
 				}
 			}
 		}
@@ -282,6 +319,17 @@ public class BlockEnchanter extends BlockContainer {
 
 			EntityItem entityBook = new EntityItem(this.worldObj, this.xCoord + 0.5, this.yCoord + 1, this.zCoord + 0.5, outputBook);
 			this.worldObj.spawnEntityInWorld(entityBook);
+		}
+		
+		private void chuckToolOut(ItemStack stack, int slot) {
+			
+			stack.setTagCompound(null);
+			ItemStack spawnItem = stack.copy();
+			
+			EntityItem entityTool = new EntityItem(this.worldObj, this.xCoord + 0.5, this.yCoord + 1, this.zCoord + 0.5, spawnItem);
+			this.worldObj.spawnEntityInWorld(entityTool);
+			
+			this.setInventorySlotContents(slot, null);
 		}
 
 		@Override

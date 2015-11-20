@@ -8,21 +8,6 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityZenScape extends TileEntity {
 	
-//	protected long ticks = 0L;
-//	
-//	public void updateEntity() {
-//		
-//		super.updateEntity();
-//		if (this.ticks == 0L) {
-//			initiate();
-//		} else if (this.ticks >= 9223372036854775807L) {
-//			this.ticks = 1L;
-//		}
-//		this.ticks += 1L;
-//	}
-//
-//	protected void initiate() {}
-	
 	@Override
 	public void writeToNBT(NBTTagCompound tag) {
 		
