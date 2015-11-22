@@ -4,12 +4,15 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -76,4 +79,16 @@ public class BlockZenScape extends Block {
 		}
 		super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
 	}
+	
+	@Override
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 vec1, Vec3 vec2) {
+    	
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		
+		if (player != null) {
+			if (player.inventory.armorItemInSlot(3) == null || (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() != ZenScape.itemGoggles))
+				return null;
+		}
+    	return super.collisionRayTrace(world, x, y, z, vec1, vec2);
+    }
 }

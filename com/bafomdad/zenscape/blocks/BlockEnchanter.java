@@ -69,46 +69,35 @@ public class BlockEnchanter extends BlockContainer {
 		
 		TileEnchanter tile = (TileEnchanter)world.getTileEntity(x, y, z);
 		
-		if (!world.isRemote)
+		if (player.isSneaking())
 		{
-			if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ZenScape.itemWoodStaff)
-			{
-				if (player.isSneaking())
+			for (int i = 0; i < tile.getSizeInventory(); i++) {
+				ItemStack stack = tile.getStackInSlot(i);
+				if (stack != null)
 				{
-					dropItem(tile, player);
-					return true;
+					if (!world.isRemote)
+					{
+						if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor && !tile.canAccept)
+						{
+							tile.canAccept = true;
+						}
+						EntityItem ei = new EntityItem(world, player.posX + 0.5, player.posY + 0.1, player.posZ + 0.5, stack);
+						if (stack.hasTagCompound())
+							ei.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+						world.spawnEntityInWorld(ei);
+						tile.setInventorySlotContents(i, null);
+						ZPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
+					}
+					world.func_147453_f(x, y, z, this);
+					break;
 				}
-				tile.startEnchant();
-				return true;
 			}
+		}
+		if (!world.isRemote && player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ZenScape.itemWoodStaff)
+		{
+			tile.startEnchant();
 		}
 		return false;
-	}
-	
-	private void dropItem(TileEnchanter tile, EntityPlayer player) {
-		
-		ItemStack dropItem = null;
-		int slot = -1;
-		
-		for (int i = 0; i < tile.getSizeInventory(); i++)
-		{
-			ItemStack stack = tile.getStackInSlot(i);
-			if (stack != null)
-			{
-				System.out.println(stack);
-				dropItem = stack;
-				slot = i;
-				break;
-			}
-		}
-		if (dropItem != null && slot != -1)
-		{
-			EntityItem ei = new EntityItem(tile.getWorldObj(), player.posX, player.posY, player.posZ, dropItem);
-            if (dropItem.hasTagCompound())
-                ei.getEntityItem().setTagCompound((NBTTagCompound)dropItem.getTagCompound().copy());
-			player.worldObj.spawnEntityInWorld(ei);
-			tile.setInventorySlotContents(slot, null);
-		}
 	}
     
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {

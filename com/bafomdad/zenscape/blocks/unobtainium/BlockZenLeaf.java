@@ -13,7 +13,7 @@ import net.minecraftforge.common.IShearable;
 import com.bafomdad.zenscape.BlockZenScape;
 import com.bafomdad.zenscape.ZenScape;
 
-public class BlockZenLeaf extends BlockZenScape implements IShearable {
+public class BlockZenLeaf extends BlockZenScape {
 	
 	public IIcon leafIcon;
 
@@ -33,24 +33,10 @@ public class BlockZenLeaf extends BlockZenScape implements IShearable {
 		
 		return leafIcon;
 	}
-
-	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
-
-		return true;
-	}
 	
 	@Override
 	public int quantityDropped(Random rand) {
 		
 		return 0;
-	}
-
-	@Override
-	public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) {
-
-		ArrayList<ItemStack> ret = new ArrayList();
-		ret.add(new ItemStack(ZenScape.blockZenLeaves, 1, 3));
-		return ret;
 	}
 }

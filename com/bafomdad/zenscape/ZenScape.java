@@ -216,7 +216,7 @@ public class ZenScape {
 		itemBombStaff = new ItemBombStaff().setUnlocalizedName("zenscape" + "." + "bombstaff").setTextureName("zenscape:bombstaff").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemBombStaff, "ItemBombStaff");
 		
-		itemSawTooth = new ItemSawtooth().setUnlocalizedName("zenscape" + "." + "sawtooth").setTextureName("zenscape:sawtooth").setCreativeTab(zenscapeTab); 
+		itemSawTooth = new ItemSawtooth(ToolMaterial.IRON).setUnlocalizedName("zenscape" + "." + "sawtooth").setTextureName("zenscape:sawtooth").setCreativeTab(zenscapeTab); 
 		GameRegistry.registerItem(itemSawTooth, "ItemSawtooth");
 		
 		itemLightPlate = new Item().setUnlocalizedName("zenscape" + "." + "lightningplate").setTextureName("zenscape:lightningplate").setCreativeTab(zenscapeTab); 
@@ -249,13 +249,13 @@ public class ZenScape {
 		itemCompost = new Item().setUnlocalizedName("zenscape" + "." + "compost").setTextureName("zenscape:compost").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemCompost, "ItemCompost");
 		
-		itemClayShovel = new ItemClayShovel(ToolMaterial.GOLD).setUnlocalizedName("zenscape" + "." + "clayshovel").setTextureName("zenscape:shovelclay").setCreativeTab(zenscapeTab);
+		itemClayShovel = new ItemClayShovel(ToolMaterial.WOOD).setUnlocalizedName("zenscape" + "." + "clayshovel").setTextureName("zenscape:shovelclay").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemClayShovel, "ItemClayShovel");
 		
 		itemCakePickaxe = new ItemCakePickaxe(ToolMaterial.WOOD).setUnlocalizedName("zenscape" + "." + "cakepickaxe").setTextureName("zenscape:pickaxecake").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemCakePickaxe, "ItemCakePickaxe");
 		
-		itemGear = new ItemGear().setUnlocalizedName("zenscape" + "." + "itemgear").setTextureName("zenscape:itemgear").setCreativeTab(zenscapeTab);
+		itemGear = new Item().setUnlocalizedName("zenscape" + "." + "itemgear").setTextureName("zenscape:itemgear").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGear, "ItemGear");
 		
 		itemLilypadBag = new ItemLilypadBag().setUnlocalizedName("zenscape" + "." + "itemlilypadbag").setTextureName("zenscape:lilypadbag").setCreativeTab(zenscapeTab);
