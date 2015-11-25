@@ -28,6 +28,7 @@ import com.bafomdad.zenscape.crafting.ZPadCrafting;
 import com.bafomdad.zenscape.crafting.ZPistonCraft;
 import com.bafomdad.zenscape.entity.EntityDokuDrop;
 import com.bafomdad.zenscape.entity.EntityFruitBomb;
+import com.bafomdad.zenscape.entity.EntityPodzolBall;
 import com.bafomdad.zenscape.entity.EntityPuffball;
 import com.bafomdad.zenscape.entity.EntitySeer;
 import com.bafomdad.zenscape.items.*;
@@ -124,6 +125,7 @@ public class ZenScape {
 	public static Item itemDokuBottle;
 	public static Item itemCard;
 	public static Item itemGoggles;
+	public static Item itemFlowerBoots;
 	public static Item itemPuffshoot;
 	public static Item itemAlchemyBottles;
 	public static Item itemCompost;
@@ -134,6 +136,7 @@ public class ZenScape {
 	public static Item itemWoodStaff;
 	public static Item itemDemoRock;
 	public static Item itemGravRing;
+	public static Item itemPodzolBall;
 	
 	public static ItemFood itemDietPills;
 	
@@ -240,6 +243,9 @@ public class ZenScape {
 		itemGoggles = new ItemGlasses(ArmorMaterial.IRON, 0).setUnlocalizedName("zenscape" + "." + "goggles").setTextureName("zenscape:zengoggles").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGoggles, "ItemGoggles");
 		
+		itemFlowerBoots = new ItemFlowerBoots(ArmorMaterial.CLOTH, 3).setUnlocalizedName("zenscape" + "." + "flowerboots").setTextureName("zenscape:flowerboots").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemFlowerBoots, "ItemFlowerBoots");
+		
 		itemPuffshoot = new ItemPuffshoot().setUnlocalizedName("zenscape" + "." + "puffshoot").setTextureName("zenscape:puffshoot").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemPuffshoot, "ItemPuffShoot");
 		
@@ -270,8 +276,11 @@ public class ZenScape {
 		itemGravRing = new ItemGravRing().setUnlocalizedName("zenscape" + "." + "itemgravring").setTextureName("zenscape:gravelring").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGravRing, "ItemGravRing");
 		
-		itemDietPills = (ItemFood)new ItemFood(-4, 0, false).setUnlocalizedName("zenscape" + "." + "dietpills").setTextureName("zenscape:dietpills").setCreativeTab(zenscapeTab);
+		itemDietPills = (ItemFood)new ItemFood(-4, 0, false).setAlwaysEdible().setUnlocalizedName("zenscape" + "." + "dietpills").setTextureName("zenscape:dietpills").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemDietPills, "ItemDietPills");
+		
+		itemPodzolBall = new ItemPodzolBall().setMaxStackSize(16).setUnlocalizedName("zenscape" + "." + "podzolball").setTextureName("zenscape:podzolball").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemPodzolBall, "ItemPozolBall");
 		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));
@@ -432,6 +441,7 @@ public class ZenScape {
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.gunpowder, 5), new Object[] { ZenScape.blockFruitBomb});
 		GameRegistry.addShapelessRecipe(new ItemStack(itemCompost), new Object[] { Dyes.BONE_MEAL.createStack(), Dyes.CACTUS_GREEN.createStack() });
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDietPills, 3), new Object[] { new ItemStack(itemAlchemyBottles, 1, 6) });
+		GameRegistry.addShapelessRecipe(new ItemStack(itemPodzolBall, 4), new Object[] { new ItemStack(Blocks.leaves, 1, 0), new ItemStack(Blocks.leaves, 1, 1), new ItemStack(Blocks.leaves, 1, 2), new ItemStack(Blocks.leaves, 1, 3) });
 
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.potionitem, 1, 8196), new Object[] { ZenScape.itemDokuBottle, Items.fermented_spider_eye });
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.potionitem, 1, 8228), new Object[] { ZenScape.itemDokuBottle, Items.glowstone_dust, Items.fermented_spider_eye });
@@ -474,6 +484,7 @@ public class ZenScape {
 		EntityRegistry.registerModEntity(EntityFruitBomb.class, "FruitBomb", entityId++, this, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityDokuDrop.class, "ProjDokuDrop", entityId++, this, 48, 20, true);
 		EntityRegistry.registerModEntity(EntityPuffball.class, "ProjPuff", entityId++, this, 48, 20, true);
+		EntityRegistry.registerModEntity(EntityPodzolBall.class, "ProjPodzolBall", entityId++, this, 48, 20, true);
 
 		ZCrafting.addRecipe(new ItemStack(ZenScape.blockZenSapling, 1, 8), new ItemStack[] { new ItemStack(Blocks.redstone_block), new ItemStack(Items.redstone), new ItemStack(Blocks.redstone_torch), new ItemStack(Blocks.log, 1, 2) });
 		ZCrafting.addRecipe(new ItemStack(ZenScape.blockZenSapling, 1, 2), new ItemStack[] { new ItemStack(Blocks.tnt), new ItemStack(Blocks.redstone_block), new ItemStack(Items.gunpowder), new ItemStack(Items.gunpowder) });

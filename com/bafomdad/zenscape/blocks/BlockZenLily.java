@@ -287,20 +287,18 @@ public class BlockZenLily extends BlockBush implements ITileEntityProvider {
 		@Override
 		public void updateEntity() {
 			
-			List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord - 2, zCoord - 2, xCoord + 2, yCoord + 2, zCoord + 2));
-			for (EntityPlayer player : players) {
-				if (player != null)
-				{
-					worldObj.setBlock(xCoord, yCoord, zCoord, ZenScape.blockZenLily, 8, 2);
-					Minecraft.getMinecraft().theWorld.spawnParticle("cloud", xCoord + 0.5, yCoord + 0.2, zCoord + 0.5, 0.0D, 0.01D, 0.0D);
-				}
+			EntityPlayer player = worldObj.getClosestPlayer(this.xCoord, this.yCoord, this.zCoord, 3);
+			if (player != null)
+			{
+				worldObj.setBlock(xCoord, yCoord, zCoord, ZenScape.blockZenLily, 8, 2);
+				Minecraft.getMinecraft().theWorld.spawnParticle("cloud", xCoord + 0.5, yCoord + 0.2, zCoord + 0.5, 0.0D, 0.01D, 0.0D);
 			}
 		}
 	}
 	
 	public static class TileInvisibleLily extends TileEntity {
 		
-		private int timer = -1;
+		private int timer = 0;
 		
 		@Override
 		public void updateEntity() {
@@ -308,16 +306,12 @@ public class BlockZenLily extends BlockBush implements ITileEntityProvider {
 			EntityPlayer player = worldObj.getClosestPlayer(xCoord, yCoord, zCoord, 3);
 			
 			if (player != null)
-			{
-				timer = 0;
-			}
-			if (player == null)
-			{
-				timer++;
-			}
-			if (timer >= 100 && player == null)
+				return;
+			timer++;
+			if (timer >= 100)
 			{
 				worldObj.setBlock(xCoord, yCoord, zCoord, ZenScape.blockZenLily, 5, 2);
+				timer = 0;
 			}
 		}
 	}

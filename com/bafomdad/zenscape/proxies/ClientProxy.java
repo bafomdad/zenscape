@@ -21,6 +21,7 @@ import com.bafomdad.zenscape.blocks.BlockWaterTorch;
 import com.bafomdad.zenscape.blocks.BlockZenLily;
 import com.bafomdad.zenscape.entity.EntityDokuDrop;
 import com.bafomdad.zenscape.entity.EntityFruitBomb;
+import com.bafomdad.zenscape.entity.EntityPodzolBall;
 import com.bafomdad.zenscape.entity.EntityPuffball;
 import com.bafomdad.zenscape.render.RenderClayPot;
 import com.bafomdad.zenscape.render.RenderCraftBox;
@@ -73,6 +74,7 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityDokuDrop.class, new RenderSnowball(ZenScape.itemDokuDrop));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuffball.class, new RenderSnowball(Items.snowball));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPodzolBall.class, new RenderSnowball(ZenScape.itemPodzolBall));
 		
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ZenScape.blockClayPot), new RenderClayPot.RenderClayPotItem());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ZenScape.blockCraftBox), new RenderCraftBox.RenderCraftBoxItem());

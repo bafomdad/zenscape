@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -120,7 +121,8 @@ public class BlockDokuPot extends Block {
         {
         	if (l > 0 && !(entity instanceof EntityItem))
         	{
-        		((EntityLivingBase)entity).addPotionEffect(new PotionEffect(19, 160, 1));
+        		if (!((EntityLivingBase)entity).isPotionActive(Potion.poison))
+        			((EntityLivingBase)entity).addPotionEffect(new PotionEffect(19, 160, 1));
         	}
         	else if (l < 6 && entity instanceof EntityItem)
         	{

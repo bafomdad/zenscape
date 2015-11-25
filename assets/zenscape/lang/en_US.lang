@@ -18,6 +18,7 @@ item.zenscape.card3.name=Redstone Card
 item.zenscape.card4.name=Emerald Card
 item.zenscape.card5.name=Lapis Card
 item.zenscape.goggles.name=Doffy's Shades
+item.zenscape.flowerboots.name=Flower Boots
 item.zenscape.clayshovel.name=Clay Shovel
 item.zenscape.cakepickaxe.name=Cake Pickaxe
 item.zenscape.puffshoot.name=Puffshoot
@@ -35,6 +36,7 @@ item.zenscape.itemwoodstaff.name=Wooden Staff
 item.zenscape.itemdemorock.name=Demolitioner's Rock
 item.zenscape.itemgravring.name=Anti-Gravelty Ring
 item.zenscape.dietpills.name=Diet Pills
+item.zenscape.podzolball.name=Podzol Ball
 
 # BLOCKS
 tile.zenscape.crafttree.name=Crafting Tree Tile
