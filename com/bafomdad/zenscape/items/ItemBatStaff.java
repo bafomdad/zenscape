@@ -2,7 +2,7 @@ package com.bafomdad.zenscape.items;
 
 import java.util.List;
 
-import com.bafomdad.zenscape.util.ZPacketDispatcher;
+import com.bafomdad.zenscape.network.ZPacketDispatcher;
 
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;

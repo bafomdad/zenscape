@@ -7,8 +7,8 @@ import java.util.Random;
 import com.bafomdad.zenscape.TileEntityZenScape;
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.crafting.ZEnchanter;
+import com.bafomdad.zenscape.network.ZPacketDispatcher;
 import com.bafomdad.zenscape.util.Vector3;
-import com.bafomdad.zenscape.util.ZPacketDispatcher;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

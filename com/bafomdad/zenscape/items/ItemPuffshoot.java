@@ -3,7 +3,7 @@ package com.bafomdad.zenscape.items;
 import java.util.List;
 
 import com.bafomdad.zenscape.entity.EntityPuffball;
-import com.bafomdad.zenscape.util.ZPacketDispatcher;
+import com.bafomdad.zenscape.network.ZPacketDispatcher;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

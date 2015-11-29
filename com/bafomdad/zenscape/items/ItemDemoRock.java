@@ -52,7 +52,7 @@ public class ItemDemoRock extends Item {
 				for (int i = 0; i < player.inventory.mainInventory.length; i++)
 				{
 					if (player.inventory.getStackInSlot(i) != null && player.inventory.getStackInSlot(i).getItem() == this)
-						player.inventory.addItemStackToInventory(new ItemStack(Items.gunpowder, new Random().nextInt(2) + 1, 0));
+						player.inventory.addItemStackToInventory(new ItemStack(Items.gunpowder, new Random().nextInt(1) + 1, 0));
 				}
 			}
 		}

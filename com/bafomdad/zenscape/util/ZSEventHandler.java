@@ -1,13 +1,11 @@
 package com.bafomdad.zenscape.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -15,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -29,7 +28,10 @@ import com.bafomdad.zenscape.blocks.BlockFruitBomb;
 import com.bafomdad.zenscape.blocks.BlockSpawnBlock;
 import com.bafomdad.zenscape.crafting.ZPadCrafting;
 import com.bafomdad.zenscape.items.ItemCard;
+import com.bafomdad.zenscape.network.ZPacketDispatcher;
 import com.bafomdad.zenscape.render.ZenTextureStitch;
+import com.bafomdad.zenscape.util.test.ZBlockHandler;
+import com.bafomdad.zenscape.util.test.ZSaveData;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -80,25 +82,6 @@ public class ZSEventHandler {
 			}
 		}
 	}
-
-	@SubscribeEvent
-	public void checkEntityDeaths(LivingDeathEvent event) {
-		
-		NBTTagCompound tag = event.entity.getEntityData();
-		if (tag.hasKey(BlockSpawnBlock.TAG_SPAWNTREASURE))
-		{
-			int tagx = tag.getInteger(BlockSpawnBlock.TAG_XLOC);
-			int tagy = tag.getInteger(BlockSpawnBlock.TAG_YLOC);
-			int tagz = tag.getInteger(BlockSpawnBlock.TAG_ZLOC);
-			
-			if (event.entity.worldObj.isAirBlock(tagx, tagy + 1, tagz))
-			{
-				Random rand = new Random();
-				event.entity.worldObj.setBlock(tagx, tagy + 1, tagz, Blocks.chest);
-				WeightedRandomChestContent.generateChestContents(rand, ChestGenHooks.getItems(ChestGenHooks.DUNGEON_CHEST, rand), (IInventory)event.entity.worldObj.getTileEntity(tagx, tagy + 1, tagz), 9);
-			}
-		}
-	}
 	
 	@SubscribeEvent
 	public void texturePreStitch(TextureStitchEvent.Pre event) {
@@ -120,6 +103,25 @@ public class ZSEventHandler {
 			event.map.setTextureEntry("zenscape:bush_tex", ZenScape.texBush = new ZenTextureStitch("zenscape:bush_tex"));
 		}
 	}
+
+	@SubscribeEvent
+	public void checkEntityDeaths(LivingDeathEvent event) {
+		
+		NBTTagCompound tag = event.entity.getEntityData();
+		if (tag.hasKey(BlockSpawnBlock.TAG_SPAWNTREASURE))
+		{
+			int tagx = tag.getInteger(BlockSpawnBlock.TAG_XLOC);
+			int tagy = tag.getInteger(BlockSpawnBlock.TAG_YLOC);
+			int tagz = tag.getInteger(BlockSpawnBlock.TAG_ZLOC);
+			
+			if (event.entity.worldObj.isAirBlock(tagx, tagy + 1, tagz))
+			{
+				Random rand = new Random();
+				event.entity.worldObj.setBlock(tagx, tagy + 1, tagz, Blocks.chest);
+				WeightedRandomChestContent.generateChestContents(rand, ChestGenHooks.getItems(ChestGenHooks.DUNGEON_CHEST, rand), (IInventory)event.entity.worldObj.getTileEntity(tagx, tagy + 1, tagz), 9);
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	public void shouldBlockHighlightHighlightCertainBlocks(DrawBlockHighlightEvent event) {
@@ -137,6 +139,27 @@ public class ZSEventHandler {
 				}
 			}
 			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onBlockBreak(BlockEvent.BreakEvent event) {
+		
+		if (event.getPlayer() != null) {
+			if (event.getPlayer().inventory.getCurrentItem() != null && event.getPlayer().inventory.getCurrentItem().getItem() == ZenScape.itemBombStaff)
+			{
+				try
+				{
+					ChunkCoordinates loc = new ChunkCoordinates(event.x, event.y, event.z);
+					ZBlockHandler.INSTANCE.addBlock(event.world, loc, event.block, event.blockMetadata);
+					
+					ZSaveData.setDirty(event.world.provider.dimensionId);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

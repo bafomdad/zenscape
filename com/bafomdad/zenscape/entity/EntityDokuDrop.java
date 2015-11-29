@@ -2,7 +2,7 @@ package com.bafomdad.zenscape.entity;
 
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.blocks.BlockDokuPot;
-import com.bafomdad.zenscape.util.ZPacketDispatcher;
+import com.bafomdad.zenscape.network.ZPacketDispatcher;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

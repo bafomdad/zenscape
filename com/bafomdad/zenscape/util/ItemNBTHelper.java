@@ -74,8 +74,18 @@ public final class ItemNBTHelper {
 	public static void setList(ItemStack stack, String tag, NBTTagList list) {
 		getNBT(stack).setTag(tag, list);
 	}
+	
+	public static void setIntArray(ItemStack stack, String key, int[] val) {
+		
+		getCompound(stack, key, true).setIntArray(key, val);
+	}
 
 	// GETTERS ///////////////////////////////////////////////////////////////////
+	
+	public static int[] getIntArray(ItemStack stack, String key) {
+		
+		return detectNBT(stack) ? getCompound(stack, key, true).getIntArray(key) : new int[0];
+	}
 
 	public static boolean verifyExistance(ItemStack stack, String tag) {
 		return stack != null && getNBT(stack).hasKey(tag);

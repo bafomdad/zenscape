@@ -11,6 +11,8 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -32,6 +34,8 @@ import com.bafomdad.zenscape.entity.EntityPodzolBall;
 import com.bafomdad.zenscape.entity.EntityPuffball;
 import com.bafomdad.zenscape.entity.EntitySeer;
 import com.bafomdad.zenscape.items.*;
+import com.bafomdad.zenscape.items.ItemDF.FruitType;
+import com.bafomdad.zenscape.network.ZPacketHandler;
 import com.bafomdad.zenscape.proxies.CommonProxy;
 import com.bafomdad.zenscape.render.ZenTextureStitch;
 import com.bafomdad.zenscape.util.CopyCatHandler;
@@ -39,6 +43,8 @@ import com.bafomdad.zenscape.util.Dyes;
 import com.bafomdad.zenscape.util.ZGuiHandler;
 import com.bafomdad.zenscape.util.ZSEventHandler;
 import com.bafomdad.zenscape.util.ZSTickHandler;
+import com.bafomdad.zenscape.util.test.ZBlockHandler;
+import com.bafomdad.zenscape.util.test.ZSaveData;
 import com.bafomdad.zenscape.worldgen.WorldGenDecorators;
 import com.bafomdad.zenscape.worldgen.WorldGenDownUnder;
 import com.bafomdad.zenscape.worldgen.WorldGenIslands;
@@ -51,9 +57,11 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "zenscape", name="ZenScape", version="0.1.2")
 
@@ -137,6 +145,7 @@ public class ZenScape {
 	public static Item itemDemoRock;
 	public static Item itemGravRing;
 	public static Item itemPodzolBall;
+	public static Item testDF;
 	
 	public static ItemFood itemDietPills;
 	
@@ -171,6 +180,7 @@ public class ZenScape {
 		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenDecorators());
 		FMLCommonHandler.instance().bus().register(new ZSTickHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ZGuiHandler());
+		ZPacketHandler.init();
 		
 		zenscapeTab = new CreativeTabs("zenscape" + ".creativeTab") {
 			
@@ -281,6 +291,9 @@ public class ZenScape {
 		
 		itemPodzolBall = new ItemPodzolBall().setMaxStackSize(16).setUnlocalizedName("zenscape" + "." + "podzolball").setTextureName("zenscape:podzolball").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemPodzolBall, "ItemPozolBall");
+		
+		testDF = new ItemDF();
+		GameRegistry.registerItem(testDF, "TestDF");
 		
 		blockZenLily = new BlockZenLily(Material.plants).setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("zenscape" + "." + "zenlily").setBlockTextureName("zenlily").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenLily, BlockZenLily.ItemZenLily.class, "zenscape" + getSafeUnlocalizedName(blockZenLily));
@@ -518,6 +531,32 @@ public class ZenScape {
 	public void postInit(FMLPostInitializationEvent event) {
 		
 		logger.info("Begin Post-initialization");
+	}
+	
+	@Mod.EventHandler
+	public void serverStarted(FMLServerStartedEvent event) {
+		
+		if (ZBlockHandler.INSTANCE == null)
+			ZBlockHandler.INSTANCE = new ZBlockHandler();
+		
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+		{
+			World world = MinecraftServer.getServer().getEntityWorld();
+			if (!world.isRemote)
+			{
+				logger.info("WorldData loading");
+				ZSaveData saveData = (ZSaveData)world.loadItemData(ZSaveData.class, ZSaveData.dataName);
+				if (saveData == null)
+				{
+					logger.info("WorldData not found");
+					saveData = new ZSaveData(ZSaveData.dataName);
+					world.setItemData(ZSaveData.dataName, saveData);
+				}
+				else
+					logger.info("WorldData retrieved");
+				ZSaveData.setInstance(world.provider.dimensionId, saveData);
+			}
+		}
 	}
 	
 	public static String getModPlusSafeUnlocalizedName(Block block) {

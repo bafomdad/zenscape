@@ -9,7 +9,7 @@ import java.util.Random;
 
 import com.bafomdad.zenscape.TileEntityZenScape;
 import com.bafomdad.zenscape.ZenScape;
-import com.bafomdad.zenscape.util.ZPacketDispatcher;
+import com.bafomdad.zenscape.network.ZPacketDispatcher;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

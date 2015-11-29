@@ -37,6 +37,9 @@ item.zenscape.itemdemorock.name=Demolitioner's Rock
 item.zenscape.itemgravring.name=Anti-Gravelty Ring
 item.zenscape.dietpills.name=Diet Pills
 item.zenscape.podzolball.name=Podzol Ball
+item.zenscape.df0.name=Devil Fruit (Paramecia)
+item.zenscape.df1.name=Devil Fruit (Zoan)
+item.zenscape.df2.name=Devil Fruit (Logia)
 
 # BLOCKS
 tile.zenscape.crafttree.name=Crafting Tree Tile

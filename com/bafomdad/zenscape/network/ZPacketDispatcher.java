@@ -1,4 +1,4 @@
-package com.bafomdad.zenscape.util;
+package com.bafomdad.zenscape.network;
 
 import java.util.List;
 
