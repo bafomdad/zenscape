@@ -1,11 +1,8 @@
 package com.bafomdad.zenscape.items;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import com.bafomdad.zenscape.util.test.ZBlockHandler;
-import com.bafomdad.zenscape.util.test.ZBlockHandler.ZWorldInfo;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import com.bafomdad.zenscape.util.test.ZBlockHandler;
+import com.bafomdad.zenscape.util.test.ZBlockHandler.ZWorldInfo;
 
 public class ItemBombStaff extends Item {
 	
@@ -86,4 +86,30 @@ public class ItemBombStaff extends Item {
     	}	
 		return stack;
 	}
+    
+    public List<ChunkCoordinates> getBlockList(World world, ItemStack stack, int xCh, int yCh, int zCh) {
+    	
+    	List<ChunkCoordinates> coordsList = new ArrayList();
+    	
+    	int diameter = range * 2;
+    	
+    	for (int i = 1; i < diameter; i++) {
+    		for (int j = 1; j < diameter; j++) {
+    			for (int k = 1; k < diameter; k++) 
+    			{
+    				int x = xCh + i - range;
+    				int y = yCh + j - range;
+    				int z = zCh + k - range;
+    				
+    				Block block = world.getBlock(x, y, z);
+    				if (block != null && block != Blocks.air)
+    				{
+    					coordsList.add(new ChunkCoordinates(x, y, z));
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	return coordsList;
+    }
 }

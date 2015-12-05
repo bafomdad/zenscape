@@ -21,6 +21,8 @@ public class ItemGravRing extends Item implements IBauble {
 	
 	public ItemGravRing() {
 		
+		super();
+		setMaxStackSize(1);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	

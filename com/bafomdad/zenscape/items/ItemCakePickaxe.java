@@ -2,6 +2,7 @@ package com.bafomdad.zenscape.items;
 
 import java.util.List;
 
+import net.minecraft.block.BlockCake;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -33,7 +34,7 @@ public class ItemCakePickaxe extends ItemPickaxe {
 	@SubscribeEvent
 	public void onBlockDrops(BlockEvent.BreakEvent event) {
 		
-		if (event.getPlayer() != null && event.block != null && event.getPlayer().getCurrentEquippedItem() != null && event.getPlayer().getCurrentEquippedItem().getItem() == this && event.world.getBlock(event.x, event.y, event.z) == Blocks.cake && event.world.getBlockMetadata(event.x, event.y, event.z) == 0) {
+		if (event.getPlayer() != null && event.block != null && event.getPlayer().getCurrentEquippedItem() != null && event.getPlayer().getCurrentEquippedItem().getItem() == this && event.world.getBlock(event.x, event.y, event.z) instanceof BlockCake && event.world.getBlockMetadata(event.x, event.y, event.z) == 0) {
 			EntityItem cake = new EntityItem(event.world, event.x + 0.5, event.y, event.z + 0.5, new ItemStack(Items.cake));
 			event.world.spawnEntityInWorld(cake);
 		}

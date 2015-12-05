@@ -25,18 +25,18 @@ public class BlockCopyCat extends BlockContainer {
 	public BlockCopyCat(Material material) {
 		
 		super(material);
-		setTickRandomly(true);
+//		setTickRandomly(true);
 	}
 	
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		
-		world.scheduleBlockUpdate(x, y, z, this, 100);
-		TileCopyCat tile = (TileCopyCat)world.getTileEntity(x, y, z);
-		
-		if (tile.rightClick(tile.fakePlayer, null, x, y, z + 1, 1))
-		{
-			ForgeEventFactory.onItemUseStart(tile.fakePlayer, null, 10);
-		}
+//		world.scheduleBlockUpdate(x, y, z, this, 100);
+//		TileCopyCat tile = (TileCopyCat)world.getTileEntity(x, y, z);
+//		
+//		if (tile.rightClick(tile.fakePlayer, null, x, y, z + 1, 1))
+//		{
+//			ForgeEventFactory.onItemUseStart(tile.fakePlayer, null, 10);
+//		}
 	}
 
 	public TileEntity createNewTileEntity(World world, int meta) {
@@ -55,13 +55,7 @@ public class BlockCopyCat extends BlockContainer {
 		
 		public void updateEntity() {
 			
-			this.updateFakePlayer();
-			
-//			if (!leftClick)
-//				if (this.rightClick(fakePlayer, null, xCoord, yCoord, zCoord + 1, 1))
-//				{
-//					ForgeEventFactory.onItemUseStart(fakePlayer, null, 10);
-//				}
+//			this.updateFakePlayer();
 		}
 		
 		public void updateFakePlayer() {

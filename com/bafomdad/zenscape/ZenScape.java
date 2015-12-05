@@ -118,6 +118,7 @@ public class ZenScape {
 	public static Block blockCopyCat;
 	public static Block blockAirBubble;
 	public static Block blockPotion;
+	public static Block blockHeartCake;
 	
 	public static Block blockSkybeam;
 	
@@ -144,6 +145,7 @@ public class ZenScape {
 	public static Item itemWoodStaff;
 	public static Item itemDemoRock;
 	public static Item itemGravRing;
+	public static Item itemEasyBadge;
 	public static Item itemPodzolBall;
 	public static Item testDF;
 	
@@ -274,17 +276,20 @@ public class ZenScape {
 		itemGear = new Item().setUnlocalizedName("zenscape" + "." + "itemgear").setTextureName("zenscape:itemgear").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGear, "ItemGear");
 		
-		itemLilypadBag = new ItemLilypadBag().setUnlocalizedName("zenscape" + "." + "itemlilypadbag").setTextureName("zenscape:lilypadbag").setCreativeTab(zenscapeTab);
+		itemLilypadBag = new ItemLilypadBag().setUnlocalizedName("zenscape" + "." + "lilypadbag").setTextureName("zenscape:lilypadbag").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemLilypadBag, "ItemLilypadBag");
 		
-		itemWoodStaff = new ItemWoodStaff().setUnlocalizedName("zenscape" + "." + "itemwoodstaff").setTextureName("zenscape:woodstaff").setCreativeTab(zenscapeTab);
+		itemWoodStaff = new ItemWoodStaff().setUnlocalizedName("zenscape" + "." + "woodstaff").setTextureName("zenscape:woodstaff").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemWoodStaff, "ItemWoodStaff");
 		
-		itemDemoRock = new ItemDemoRock().setUnlocalizedName("zenscape" + "." + "itemdemorock").setTextureName("zenscape:demorock").setCreativeTab(zenscapeTab);
+		itemDemoRock = new ItemDemoRock().setUnlocalizedName("zenscape" + "." + "demorock").setTextureName("zenscape:demorock").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemDemoRock, "ItemDemoRock");
 		
-		itemGravRing = new ItemGravRing().setUnlocalizedName("zenscape" + "." + "itemgravring").setTextureName("zenscape:gravelring").setCreativeTab(zenscapeTab);
+		itemGravRing = new ItemGravRing().setUnlocalizedName("zenscape" + "." + "gravring").setTextureName("zenscape:gravelring").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemGravRing, "ItemGravRing");
+		
+		itemEasyBadge = new ItemEasyBadge().setUnlocalizedName("zenscape" + "." + "easybadge").setTextureName("zenscape:easybadge").setCreativeTab(zenscapeTab);
+		GameRegistry.registerItem(itemEasyBadge, "ItemEasyBadge");
 		
 		itemDietPills = (ItemFood)new ItemFood(-4, 0, false).setAlwaysEdible().setUnlocalizedName("zenscape" + "." + "dietpills").setTextureName("zenscape:dietpills").setCreativeTab(zenscapeTab);
 		GameRegistry.registerItem(itemDietPills, "ItemDietPills");
@@ -428,13 +433,16 @@ public class ZenScape {
 		blockPotion = new BlockPotion(Material.plants).setBlockName("zenscape" + "." + "potionblock").setBlockTextureName("zenscape:blockpotion");
 		GameRegistry.registerBlock(blockPotion, "blockPotion");
 		
+		blockHeartCake = new BlockHeartCake().setBlockName("zenscape" + "." + "heartcake").setBlockTextureName("zenscape:heartcake").setCreativeTab(zenscapeTab);
+		GameRegistry.registerBlock(blockHeartCake, "blockHeartCake");
+		
 		GameRegistry.registerBlock(blockGreenStairs = new BlockZenStairs.BlockGreenStairs("zenscape.greenstairs", ZenScape.blockZenBricks, 0), "zenscape.greenstairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockRedStairs = new BlockZenStairs.BlockRedStairs("zenscape.redstairs", ZenScape.blockZenBricks, 4), "zenscape.redstairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockBlueStairs = new BlockZenStairs.BlockBlueStairs("zenscape.bluestairs", ZenScape.blockZenBricks, 8), "zenscape.bluestairs").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockBlackStairs = new BlockZenStairs.BlockBlackStairs("zenscape.blackstairs", ZenScape.blockZenBricks, 12), "zenscape.blackstairs").setCreativeTab(zenscapeTab);
 		
-		slab = new BlockZenSlabs("zenscape.slab", false, Material.rock).setCreativeTab(zenscapeTab);	
-		double_slab = new BlockZenSlabs("double_slab", true, Material.rock).setCreativeTab(zenscapeTab);
+		slab = new BlockZenSlabs("zenscape.slab", false, Material.rock).setHardness(3.0F).setCreativeTab(zenscapeTab);	
+		double_slab = new BlockZenSlabs("double_slab", true, Material.rock).setHardness(3.0F).setCreativeTab(zenscapeTab);
 	}
 	
 	@Mod.EventHandler

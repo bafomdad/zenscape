@@ -86,7 +86,7 @@ public class BlockEnchanter extends BlockContainer {
 							ei.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 						world.spawnEntityInWorld(ei);
 						tile.setInventorySlotContents(i, null);
-						ZPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
+						ZPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 					}
 					world.func_147453_f(x, y, z, this);
 					break;
@@ -208,7 +208,7 @@ public class BlockEnchanter extends BlockContainer {
 		
 		public TileEnchanter() {
 			
-			this.inventory = new ItemStack[3];
+			this.inventory = new ItemStack[2];
 		}
 		
 		public void updateEntity() {
@@ -260,34 +260,36 @@ public class BlockEnchanter extends BlockContainer {
 		public void startEnchant() {
 			
 			ItemStack tool = null;
-			int bookCount = 0;
+			boolean hasBook = false;
+//			int bookCount = -1;
 			int toolSlot = -1;
+			int bookSlot = -1;
 			
 			for (int i = 0; i < this.getSizeInventory(); i++) {
 				ItemStack stack = this.getStackInSlot(i);
 				if (stack != null)
 				{
-					if (stack.getItem() == Items.writable_book)
-						bookCount++;
+					if (stack.getItem() == Items.writable_book) {
+						hasBook = true;
+						bookSlot = i;
+					}
 					if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor) {
 						tool = stack;
 						toolSlot = i;
 					}
 				}
 			}
-			if (tool != null && bookCount > 0) {
+			if (tool != null && hasBook) {
 				NBTTagCompound enchTag;
 				NBTTagList enchants = tool.getEnchantmentTagList();
 				if (enchants.tagCount() > 0) {
-					for (int j = 0; j <= enchants.tagCount(); ++j) 
+					for (int j = 0; j < enchants.tagCount(); ++j) 
 					{
-						if (j < bookCount)
-						{
-							enchTag = (NBTTagCompound)((NBTTagList)tool.getTagCompound().getTag("ench")).getCompoundTagAt(j);
-							outputBook(enchTag);
-							enchants.removeTag(j);
-							tool.setItemDamage(tool.getItemDamage() + worldObj.rand.nextInt(20) + 20);
-						}
+						enchTag = (NBTTagCompound)((NBTTagList)tool.getTagCompound().getTag("ench")).getCompoundTagAt(0);
+						outputBook(enchTag);
+						enchants.removeTag(0);
+						tool.setItemDamage(tool.getItemDamage() + worldObj.rand.nextInt(20) + 20);
+						this.setInventorySlotContents(bookSlot, null);
 					}
 					if (enchants.tagCount() == 0) {
 						chuckToolOut(tool, toolSlot);
@@ -334,8 +336,11 @@ public class BlockEnchanter extends BlockContainer {
 		}
 
 		@Override
-		public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+		public ItemStack decrStackSize(int i, int j) {
 
+			if (inventory[i].stackSize <= j)
+				this.markDirty();
+				
 			return null;
 		}
 
