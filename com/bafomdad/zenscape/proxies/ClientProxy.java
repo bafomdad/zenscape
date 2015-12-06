@@ -9,6 +9,7 @@ import org.lwjgl.input.Mouse;
 
 import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.blocks.BlockClayPot;
+import com.bafomdad.zenscape.blocks.BlockCopyCat;
 import com.bafomdad.zenscape.blocks.BlockCraftBox;
 import com.bafomdad.zenscape.blocks.BlockCraftTree;
 import com.bafomdad.zenscape.blocks.BlockDokuPot;
@@ -16,6 +17,7 @@ import com.bafomdad.zenscape.blocks.BlockEnchanter;
 import com.bafomdad.zenscape.blocks.BlockFruitBomb;
 import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockJoker;
+import com.bafomdad.zenscape.blocks.BlockPowerLog;
 import com.bafomdad.zenscape.blocks.BlockSkybeam;
 import com.bafomdad.zenscape.blocks.BlockWaterTorch;
 import com.bafomdad.zenscape.blocks.BlockZenLily;
@@ -24,6 +26,7 @@ import com.bafomdad.zenscape.entity.EntityFruitBomb;
 import com.bafomdad.zenscape.entity.EntityPodzolBall;
 import com.bafomdad.zenscape.entity.EntityPuffball;
 import com.bafomdad.zenscape.render.RenderClayPot;
+import com.bafomdad.zenscape.render.RenderCopyCat;
 import com.bafomdad.zenscape.render.RenderCraftBox;
 import com.bafomdad.zenscape.render.RenderCraftTree;
 import com.bafomdad.zenscape.render.RenderDokuPot;
@@ -31,6 +34,7 @@ import com.bafomdad.zenscape.render.RenderEnchanter;
 import com.bafomdad.zenscape.render.RenderFruitBomb;
 import com.bafomdad.zenscape.render.RenderGearLog;
 import com.bafomdad.zenscape.render.RenderJoker;
+import com.bafomdad.zenscape.render.RenderPowerLog;
 import com.bafomdad.zenscape.render.RenderSkybeam;
 import com.bafomdad.zenscape.render.RenderWaterTorch;
 import com.bafomdad.zenscape.render.RenderZenLily;
@@ -50,10 +54,12 @@ public class ClientProxy extends CommonProxy {
 		BlockWaterTorch.renderId = RenderingRegistry.getNextAvailableRenderId();
 		BlockDokuPot.renderId = RenderingRegistry.getNextAvailableRenderId();
 		BlockZenLily.renderId = RenderingRegistry.getNextAvailableRenderId();
+//		BlockPowerLog.renderId = RenderingRegistry.getNextAvailableRenderId();
 		
 		RenderingRegistry.registerBlockHandler(new RenderWaterTorch());
 		RenderingRegistry.registerBlockHandler(new RenderDokuPot());
 		RenderingRegistry.registerBlockHandler(new RenderZenLily());
+//		RenderingRegistry.registerBlockHandler(new RenderPowerLog());
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityFruitBomb.class, new RenderFruitBomb());
 		
@@ -65,6 +71,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftBox.TileCraftBox.class, new RenderCraftBox());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockJoker.TileJoker.class, new RenderJoker());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockEnchanter.TileEnchanter.class, new RenderEnchanter());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockCopyCat.TileCopyCat.class, new RenderCopyCat());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockSkybeam.TileSkybeam.class, new RenderSkybeam());
 	}

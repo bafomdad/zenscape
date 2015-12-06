@@ -149,6 +149,7 @@ tile.zenscape.blockSkybeam.name=Skybeam
 tile.zenscape.enchanter.name=Enchanter
 tile.zenscape.airbubble.name=Air Bubbles
 tile.zenscape.potionblock.name=Bottle of Diet Pills
+tile.zenscape.copycat.name=Copycat Eye
 
 # INVISIBLE BLOCKS
 tile.zenscape.flywood.name=Flywood (Invisible)

@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -15,6 +16,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.bafomdad.zenscape.TileEntityZenScape;
+import com.bafomdad.zenscape.ZenScape;
 import com.bafomdad.zenscape.entity.CopyCatPlayer;
 import com.bafomdad.zenscape.util.CopyCatHelper;
 
@@ -25,18 +27,27 @@ public class BlockCopyCat extends BlockContainer {
 	public BlockCopyCat(Material material) {
 		
 		super(material);
-//		setTickRandomly(true);
 	}
 	
-	public void updateTick(World world, int x, int y, int z, Random rand) {
+	public boolean isOpaqueCube() {
 		
-//		world.scheduleBlockUpdate(x, y, z, this, 100);
-//		TileCopyCat tile = (TileCopyCat)world.getTileEntity(x, y, z);
-//		
-//		if (tile.rightClick(tile.fakePlayer, null, x, y, z + 1, 1))
-//		{
-//			ForgeEventFactory.onItemUseStart(tile.fakePlayer, null, 10);
-//		}
+		return false;
+	}
+	
+	public boolean renderAsNormalBlock() {
+		
+		return false;
+	}
+	
+	public Item getItemDropped(int metadata, Random rand, int fortune) {
+		
+		return Item.getItemFromBlock(ZenScape.blockZenLog3);
+	}
+	
+	@Override
+	public int damageDropped(int metadata) {
+		
+		return 1;
 	}
 
 	public TileEntity createNewTileEntity(World world, int meta) {
@@ -55,7 +66,6 @@ public class BlockCopyCat extends BlockContainer {
 		
 		public void updateEntity() {
 			
-//			this.updateFakePlayer();
 		}
 		
 		public void updateFakePlayer() {

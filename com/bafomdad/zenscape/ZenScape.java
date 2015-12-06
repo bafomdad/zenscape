@@ -353,7 +353,7 @@ public class ZenScape {
 		
 		blockPowerLog = new BlockPowerLog(Material.wood).setStepSound(Block.soundTypeWood).setHardness(2.0F).setBlockName("zenscape" + "." + "powerlog").setBlockTextureName("powerblock").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockPowerLog, "zenscape" + getSafeUnlocalizedName(blockPowerLog));
-		GameRegistry.registerTileEntity(BlockPowerLog.TileEntityPowerLog.class, "tileEntityPowerLog");
+		GameRegistry.registerTileEntity(BlockPowerLog.TilePowerLog.class, "tileEntityPowerLog");
 		
 		blockZenGrass = new BlockZenGrass(Material.grass).setStepSound(Block.soundTypeGrass).setHardness(0.6F).setBlockName("zenscape" + "." + "zengrass").setBlockTextureName("grassz").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockZenGrass, "zenscape" + getSafeUnlocalizedName(blockZenGrass));
@@ -423,7 +423,7 @@ public class ZenScape {
 		GameRegistry.registerBlock(blockEnchanter, "blockEnchanter");
 		GameRegistry.registerTileEntity(BlockEnchanter.TileEnchanter.class, "tileEnchanter");
 		
-		blockCopyCat = new BlockCopyCat(Material.wood).setBlockName("zenscape" + "." + "copycat").setCreativeTab(zenscapeTab);
+		blockCopyCat = new BlockCopyCat(Material.wood).setBlockName("zenscape" + "." + "copycat").setBlockTextureName("zenscape:tilecopycat").setCreativeTab(zenscapeTab);
 		GameRegistry.registerBlock(blockCopyCat, "blockCopyCat");
 		GameRegistry.registerTileEntity(BlockCopyCat.TileCopyCat.class, "tileCopyCat");
 		

@@ -33,7 +33,7 @@ public class RenderDokuPot extends BlockRenderer implements ISimpleBlockRenderin
 
 		block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		renderer.setRenderBoundsFromBlock(block);
-		drawFaces(renderer, block, ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[1], ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[3], ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[2], ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[2], ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[2], ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[2], true);
+		drawFaces(renderer, block, ((BlockDokuPot)block).icon[1], ((BlockDokuPot)block).icon[3], ((BlockDokuPot)block).icon[2], ((BlockDokuPot)block).icon[2], ((BlockDokuPot)block).icon[2], ((BlockDokuPot)block).icon[2], true);
 	}
 	
 	public boolean renderDokuPot(IBlockAccess world, int x, int y, int z, int side, int type, Block block, RenderBlocks renderer, int brightness) {
@@ -43,8 +43,8 @@ public class RenderDokuPot extends BlockRenderer implements ISimpleBlockRenderin
     	renderer.setRenderBoundsFromBlock(block);
     	renderer.renderStandardBlock(block, x, y, z);
     	
-   		IIcon innerSide = ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[4];
-   		IIcon bottom = ((com.bafomdad.zenscape.blocks.BlockDokuPot)block).icon[5];
+   		IIcon innerSide = ((BlockDokuPot)block).icon[4];
+   		IIcon bottom = ((BlockDokuPot)block).icon[5];
    		float f5 = 0.123F;
     	
    		renderer.renderFaceXPos(block, x - 1.0F + f5, y, z, innerSide);

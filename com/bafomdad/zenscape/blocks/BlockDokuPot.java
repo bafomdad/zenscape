@@ -67,18 +67,6 @@ public class BlockDokuPot extends Block {
     		this.icon[i] = register.registerIcon("zenscape:dokupot" + i);
     	}
     }
-    
-    @SideOnly(Side.CLIENT)
-    public IIcon getBlockTextureFromSide(IBlockAccess blockAccess, int i, int j, int k, int side) {
-    	
-    	if (side == 1) {
-    		return this.icon[1];
-    	}
-    	if (side == 0) {
-    		return this.icon[2];
-    	}
-    	return this.icon[3];
-    }
 	
     public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
         

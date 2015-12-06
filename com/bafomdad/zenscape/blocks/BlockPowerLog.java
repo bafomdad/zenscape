@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -14,9 +15,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.bafomdad.zenscape.BlockZenScape;
@@ -28,8 +32,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPowerLog extends Block {
 	
-	@SideOnly(Side.CLIENT)
-	private IIcon[] icons;
+	public IIcon[] icons;
 	public IIcon top;
 
 	public BlockPowerLog(Material material) {
@@ -38,6 +41,13 @@ public class BlockPowerLog extends Block {
 		setTickRandomly(true);
 	}
 	
+	public static int renderId;
+	
+//	public int getRenderType() {
+//		
+//		return renderId;
+//	}
+	
 	public int damageDropped(int par1) {
 		
 		return 0;
@@ -45,8 +55,8 @@ public class BlockPowerLog extends Block {
 	
 	public int getPowerTexture(World world, int x, int y, int z) {
 		
-		TileEntityPowerLog te = (TileEntityPowerLog)world.getTileEntity(x, y, z);
-		te.getPowerAmount();
+		TilePowerLog te = (TilePowerLog)world.getTileEntity(x, y, z);
+		
 		return (int) Math.ceil(te.getPowerAmount() / 1000);
 	}
 	
@@ -62,21 +72,20 @@ public class BlockPowerLog extends Block {
 		}
 	}
 
-	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int par1, int par2) {
+	public IIcon getIcon(int side, int meta) {
 		
-		switch(par1)
+		switch(side)
 		{
 			case 0: return top;
 			case 1: return top;
-			default: return icons[par2];
+			default: return icons[meta];
 		}
 	}
 	
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
     {
-    	TileEntityPowerLog te = (TileEntityPowerLog)world.getTileEntity(x, y, z);
+    	TilePowerLog te = (TilePowerLog)world.getTileEntity(x, y, z);
         if (!world.isRemote)
         {
             if (!te.isPowered && world.isBlockIndirectlyGettingPowered(x, y, z))
@@ -93,7 +102,7 @@ public class BlockPowerLog extends Block {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		
-		TileEntityPowerLog te = (TileEntityPowerLog)world.getTileEntity(x, y, z);
+		TilePowerLog te = (TilePowerLog)world.getTileEntity(x, y, z);
 		world.scheduleBlockUpdate(x, y, z, this, 20);
 		if (!te.isPowered && world.isBlockIndirectlyGettingPowered(x, y, z))
 		{
@@ -107,7 +116,7 @@ public class BlockPowerLog extends Block {
     
     	if (!world.isRemote)
     	{
-			TileEntityPowerLog te = (TileEntityPowerLog) world.getTileEntity(x, y, z);
+			TilePowerLog te = (TilePowerLog) world.getTileEntity(x, y, z);
     		if (player.getCurrentEquippedItem() == null)
     		{
     			String s;
@@ -193,26 +202,24 @@ public class BlockPowerLog extends Block {
 	
 	public TileEntity createTileEntity(World world, int meta) {
 		
-		return new TileEntityPowerLog();
+		return new TilePowerLog();
 	}
 	
-	public static class TileEntityPowerLog extends TileEntityZenScape {
+	public static class TilePowerLog extends TileEntityZenScape {
 	
 		private static final String NBT_POWER_AMOUNT = "storage";
 		public final int maxPower = 12000;
 		public int power = 0;
 		public boolean isPowered;
 		
-		public void readFromNBT(NBTTagCompound nbt) {
+		public void readCustomNBT(NBTTagCompound tag) {
 			
-			super.readFromNBT(nbt);
-			power = nbt.getInteger(NBT_POWER_AMOUNT);
+			this.power = tag.getInteger(NBT_POWER_AMOUNT);
 		}
 
-		public void writeToNBT(NBTTagCompound nbt) {
+		public void writeCustomNBT(NBTTagCompound tag) {
 			
-			super.writeToNBT(nbt);
-			nbt.setInteger(NBT_POWER_AMOUNT, power);
+			tag.setInteger(NBT_POWER_AMOUNT, power);
 		}
 		
 		public int getPowerAmount() {
@@ -260,7 +267,6 @@ public class BlockPowerLog extends Block {
 			
 			if (worldObj.isThundering() && getPowerAmount() != maxPower && worldObj.rand.nextInt(1000) == 0)
 			{
-//				System.out.println("strike lightning");
 				worldObj.addWeatherEffect(new EntityLightningBolt(worldObj, this.xCoord, this.yCoord, this.zCoord));
 				if (!worldObj.isRemote)
 					this.addPower(3000);
