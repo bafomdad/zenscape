@@ -120,13 +120,16 @@ public class BlockZenLily extends BlockBush implements ITileEntityProvider {
     public boolean canBlockStay(World world, int posX, int posY, int posZ) {
 		
 		int meta = world.getBlockMetadata(posX, posY, posZ);
+        Material material = world.getBlock(posX, posY - 1, posZ).getMaterial();
 		
 		if (meta == 0)
 		{
-	        Material material = world.getBlock(posX, posY - 1, posZ).getMaterial();
 	        return posY >= 0 && posY < 256 ? world.getBlock(posX, posY - 1, posZ).getMaterial() == Material.lava && world.getBlockMetadata(posX, posY - 1, posZ) == 0 : false;
 		}
-        Material material = world.getBlock(posX, posY - 1, posZ).getMaterial();
+		if (meta == 1)
+		{
+			return posY >= 0 && posY < 256 ? world.getBlock(posX, posY - 1, posZ).getMaterial() == Material.water && world.getBlockMetadata(posX, posY - 1, posZ) == 0 || world.getBlock(posX, posY - 1, posZ).getMaterial() == Material.ice : false;
+		}
         return posY >= 0 && posY < 256 ? world.getBlock(posX, posY - 1, posZ).getMaterial() == Material.water && world.getBlockMetadata(posX, posY - 1, posZ) == 0 : false;
 	}
 	

@@ -32,7 +32,6 @@ public class BlockCraftTree extends BlockContainerZenScape {
 	public BlockCraftTree(Material material) {
 		
 		super(material);
-		this.setTickRandomly(true);
 	}
 	
     @Override

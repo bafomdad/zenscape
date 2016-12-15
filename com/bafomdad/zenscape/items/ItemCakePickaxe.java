@@ -7,6 +7,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -35,7 +36,7 @@ public class ItemCakePickaxe extends ItemPickaxe {
 	public void onBlockDrops(BlockEvent.BreakEvent event) {
 		
 		if (event.getPlayer() != null && event.block != null && event.getPlayer().getCurrentEquippedItem() != null && event.getPlayer().getCurrentEquippedItem().getItem() == this && event.world.getBlock(event.x, event.y, event.z) instanceof BlockCake && event.world.getBlockMetadata(event.x, event.y, event.z) == 0) {
-			EntityItem cake = new EntityItem(event.world, event.x + 0.5, event.y, event.z + 0.5, new ItemStack(Items.cake));
+			EntityItem cake = new EntityItem(event.world, event.x + 0.5, event.y, event.z + 0.5, new ItemStack(Item.getItemFromBlock(event.block)));
 			event.world.spawnEntityInWorld(cake);
 		}
 	}

@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import com.bafomdad.zenscape.blocks.BlockPistonCrafter;
+import com.bafomdad.zenscape.items.ItemCompost;
 import com.bafomdad.zenscape.util.ZSEventHandler;
 
 public class ZPadCrafting {
@@ -26,12 +27,12 @@ public class ZPadCrafting {
 		for (Object obj : inputs) {
 			if (obj instanceof ItemStack)
 				inputsToSet.add((ItemStack)obj);
-			else throw new IllegalArgumentException("Invalid input, expected: ItemStack");
+			else throw new IllegalArgumentException("ZPadCrafting: Invalid input");
 		}
 		this.inputs = inputsToSet;
 	}
 	
-	public boolean matches(ZSEventHandler tile) {
+	public boolean matches(ItemCompost tile) {
 		
 		List<Object> inputsMissing = new ArrayList(inputs);
 		

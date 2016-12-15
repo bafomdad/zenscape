@@ -1,14 +1,12 @@
 package com.bafomdad.zenscape.render;
 
-import com.bafomdad.zenscape.ZenScape;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import com.bafomdad.zenscape.ZenScape;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

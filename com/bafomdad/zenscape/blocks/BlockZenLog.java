@@ -82,8 +82,6 @@ public class BlockZenLog extends BlockLog {
 	
 	public static class ItemZenscapeLog extends ItemBlock {
 		
-		public static final String blockType[] = { "lightning", "crafting", "explosive", "nature" };
-		
 		public ItemZenscapeLog(Block block) {
 			
 			super(block);
@@ -93,7 +91,7 @@ public class BlockZenLog extends BlockLog {
     	@Override
     	public String getUnlocalizedName(ItemStack stack) {
     		
-    		return this.getUnlocalizedName() + "." + stack.getItemDamage();
+    		return this.getUnlocalizedName() + "." + (stack.getItemDamage() & 0x3);
     	}
     	
     	public int getMetadata(int par1) {

@@ -85,7 +85,7 @@ public class BlockZenScape extends Block {
     	
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		
-		if (player != null) {
+		if (player != null && !player.capabilities.isCreativeMode) {
 			if (player.inventory.armorItemInSlot(3) == null || (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() != ZenScape.itemGoggles))
 				return null;
 		}

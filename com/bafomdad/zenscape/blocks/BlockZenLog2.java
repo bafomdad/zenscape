@@ -27,28 +27,11 @@ public class BlockZenLog2 extends BlockLog {
 
 	public IIcon[] icons;
 	public IIcon[] top;
-	public String[] textureNames = new String[] { "log_flywood", "log_poison", "log_dizzy", "log_joker" };
+	public String[] textureNames = new String[] { "log_flywood", "log_poison", "log_enchant", "log_joker" };
 	
 	
 	public BlockZenLog2(Material material) {
-		
-		setTickRandomly(true);
-	}
-	
-	public void updateTick(World world, int x, int y, int z, Random rand) {
-		
-		world.scheduleBlockUpdate(x, y, z, this, 20);
-		EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().thePlayer;
-		if (!world.isRemote && player != null)
-		{
-			MovingObjectPosition mop = player.rayTrace(10, 1);
-			Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
-			int meta = world.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ) & 3; 
-			if (block == this && meta == 2)
-			{
-				player.addPotionEffect(new PotionEffect(9, 100, 0));
-			}
-		}
+			
 	}
 
 	@Override
@@ -95,8 +78,6 @@ public class BlockZenLog2 extends BlockLog {
 	
 	public static class ItemZenscapeLog2 extends ItemBlock {
 		
-		public static final String blockType[] = { "gears" };
-		
 		public ItemZenscapeLog2(Block block) {
 			
 			super(block);
@@ -106,7 +87,7 @@ public class BlockZenLog2 extends BlockLog {
     	@Override
     	public String getUnlocalizedName(ItemStack stack) {
     		
-    		return this.getUnlocalizedName() + "." + stack.getItemDamage();
+    		return this.getUnlocalizedName() + "." + (stack.getItemDamage() & 0x3);
     	}
     	
     	public int getMetadata(int par1) {

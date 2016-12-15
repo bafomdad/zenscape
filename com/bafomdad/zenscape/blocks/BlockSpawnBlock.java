@@ -43,7 +43,7 @@ public class BlockSpawnBlock extends BlockZenScape implements ITileEntityProvide
 				EntityVillager entityV = new EntityVillager(worldObj);
 				entityV.setPosition(xCoord + 0.5, yCoord + 1.5, zCoord + 0.5);
 				NBTTagCompound tag = entityV.getEntityData();
-				tag.setBoolean(BlockSpawnBlock.TAG_SPAWNTREASURE, true);
+				tag.setBoolean(TAG_SPAWNTREASURE, true);
 				tag.setInteger(TAG_XLOC, xCoord);
 				tag.setInteger(TAG_YLOC, yCoord);
 				tag.setInteger(TAG_ZLOC, zCoord);

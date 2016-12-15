@@ -13,12 +13,11 @@ import com.bafomdad.zenscape.blocks.BlockCopyCat;
 import com.bafomdad.zenscape.blocks.BlockCraftBox;
 import com.bafomdad.zenscape.blocks.BlockCraftTree;
 import com.bafomdad.zenscape.blocks.BlockDokuPot;
-import com.bafomdad.zenscape.blocks.BlockEnchanter;
+import com.bafomdad.zenscape.blocks.BlockEnchantree;
 import com.bafomdad.zenscape.blocks.BlockFruitBomb;
 import com.bafomdad.zenscape.blocks.BlockGearLog;
 import com.bafomdad.zenscape.blocks.BlockJoker;
 import com.bafomdad.zenscape.blocks.BlockPowerLog;
-import com.bafomdad.zenscape.blocks.BlockSkybeam;
 import com.bafomdad.zenscape.blocks.BlockWaterTorch;
 import com.bafomdad.zenscape.blocks.BlockZenLily;
 import com.bafomdad.zenscape.entity.EntityDokuDrop;
@@ -30,12 +29,11 @@ import com.bafomdad.zenscape.render.RenderCopyCat;
 import com.bafomdad.zenscape.render.RenderCraftBox;
 import com.bafomdad.zenscape.render.RenderCraftTree;
 import com.bafomdad.zenscape.render.RenderDokuPot;
-import com.bafomdad.zenscape.render.RenderEnchanter;
+import com.bafomdad.zenscape.render.RenderEnchantree;
 import com.bafomdad.zenscape.render.RenderFruitBomb;
 import com.bafomdad.zenscape.render.RenderGearLog;
 import com.bafomdad.zenscape.render.RenderJoker;
 import com.bafomdad.zenscape.render.RenderPowerLog;
-import com.bafomdad.zenscape.render.RenderSkybeam;
 import com.bafomdad.zenscape.render.RenderWaterTorch;
 import com.bafomdad.zenscape.render.RenderZenLily;
 
@@ -70,10 +68,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockClayPot.TileClayPotDeco.class, new RenderClayPot());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockCraftBox.TileCraftBox.class, new RenderCraftBox());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockJoker.TileJoker.class, new RenderJoker());
-		ClientRegistry.bindTileEntitySpecialRenderer(BlockEnchanter.TileEnchanter.class, new RenderEnchanter());
+		ClientRegistry.bindTileEntitySpecialRenderer(BlockEnchantree.TileEnchantree.class, new RenderEnchantree());
 		ClientRegistry.bindTileEntitySpecialRenderer(BlockCopyCat.TileCopyCat.class, new RenderCopyCat());
-		
-		ClientRegistry.bindTileEntitySpecialRenderer(BlockSkybeam.TileSkybeam.class, new RenderSkybeam());
 	}
 	
 	@Override

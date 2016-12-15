@@ -25,7 +25,7 @@ public class ZPistonCraft {
 		for (Object obj : inputs) {
 			if (obj instanceof ItemStack  && inputs.length == 4 || inputs.length == 8)
 				inputsToSet.add((ItemStack)obj);
-			else throw new IllegalArgumentException("Invalid input, or incorrect amount of inputs");
+			else throw new IllegalArgumentException("ZPistonCraft: Invalid input, or incorrect amount of inputs");
 		}
 		this.inputs = inputsToSet;
 	}

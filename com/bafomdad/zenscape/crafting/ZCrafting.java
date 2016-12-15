@@ -22,7 +22,7 @@ public class ZCrafting {
 		for (Object obj : inputs) {
 			if (obj instanceof ItemStack)
 				inputsToSet.add((ItemStack)obj);
-			else throw new IllegalArgumentException("Invalid input");
+			else throw new IllegalArgumentException("ZCrafting: Invalid input");
 		}
 		this.inputs = inputsToSet;
 	}

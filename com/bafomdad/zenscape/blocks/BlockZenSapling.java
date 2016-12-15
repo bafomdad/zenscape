@@ -28,7 +28,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 public class BlockZenSapling extends BlockBush {
 	
 	public IIcon[] saplingIcon;
-	public String[] textureNames = new String[] { "sapling_lightning", "sapling_crafting", "sapling_explosive", "sapling_nature", "sapling_flywood", "sapling_poison", "sapling_dizzy", "sapling_gear", "sapling_uncharged", "sapling_joker", "sapling_hunger" };
+	public String[] textureNames = new String[] { "sapling_lightning", "sapling_crafting", "sapling_explosive", "sapling_nature", "sapling_flywood", "sapling_poison", "sapling_enchant", "sapling_gear", "sapling_uncharged", "sapling_joker", "sapling_hunger" };
 
 	public BlockZenSapling(Material material) {
 		
@@ -45,7 +45,7 @@ public class BlockZenSapling extends BlockBush {
 			if (world.getBlock(x + 1, y - 1, z) == ZenScape.blockLightBlock && world.getBlock(x, y - 1, z + 1) == ZenScape.blockLightBlock && world.getBlock(x - 1, y - 1, z) == ZenScape.blockLightBlock && world.getBlock(x, y - 1, z - 1) == ZenScape.blockLightBlock) 
 			{
 				world.addWeatherEffect(new EntityLightningBolt(world, x, y, z));
-				world.setBlock(x, y, z, ZenScape.blockZenSapling, 0, 2);
+				world.setBlockMetadataWithNotify(x, y, z, 0, 2);
 			}
 		}
 	}

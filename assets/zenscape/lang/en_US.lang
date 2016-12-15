@@ -34,18 +34,16 @@ item.zenscape.itemgear.name=Wooden Gear
 item.zenscape.lilypadbag.name=Lilypad Bag
 item.zenscape.woodstaff.name=Wooden Staff
 item.zenscape.demorock.name=Demolitioner's Rock
-item.zenscape.gravring.name=Anti-Gravelty Ring
-item.zenscape.easybadge.name=Easy Badge
 item.zenscape.dietpills.name=Diet Pills
 item.zenscape.podzolball.name=Podzol Ball
-item.zenscape.df0.name=Devil Fruit (WIP)
-item.zenscape.df1.name=Devil Fruit (WIP)
-item.zenscape.df2.name=Devil Fruit (WIP)
+item.zenscape.dogresidue.name=Dog Residue
+item.zenscape.ancientclock.name=Ancient Clock
+item.zenscape.zenhoe.name=Zen Garden Rake
 
 # BLOCKS
 tile.zenscape.crafttree.name=Crafting Tree Tile
 tile.zenscape.craftbox.name=Crafting Box
-tile.zenscape.crafttreesapling.name=Crafting Tree Sapling
+tile.zenscape.enchantree.name=Enchanting Tree Tile
 tile.zenscape.naturetree.name=Nature Tree Log
 tile.zenscape.zenbrick.0.name=Green Brick
 tile.zenscape.zenbrick.1.name=Mossy Green Brick
@@ -69,13 +67,15 @@ tile.zenscape.blackmesa.2.name=Bluemetal Tile
 tile.zenscape.blackmesa.3.name=Bluemetal Mixed Color
 tile.zenscape.blackmesa.4.name=Bluemetal Orange
 tile.zenscape.blackmesa.5.name=Bluemetal Blue
+tile.zenscape.rainthistle.0.name=Rain Thistle (Dry)
+tile.zenscape.rainthistle.1.name=Rain Thistle (Wet)
 tile.zenscape.zenlog.0.name=Lightning Log
 tile.zenscape.zenlog.1.name=Crafting Log
 tile.zenscape.zenlog.2.name=Baku Log
 tile.zenscape.zenlog.3.name=Nature Log
 tile.zenscape.zenlog2.0.name=Flywood Log
 tile.zenscape.zenlog2.1.name=Doku Log
-tile.zenscape.zenlog2.2.name=Dizzy Log
+tile.zenscape.zenlog2.2.name=Enchant Log
 tile.zenscape.zenlog2.3.name=Joker Log
 tile.zenscape.zenlog3.0.name=Negawood Log
 tile.zenscape.zenlog3.1.name=Copycat Log
@@ -87,7 +87,7 @@ tile.zenscape.zensapling.2.name=Baku Sapling
 tile.zenscape.zensapling.3.name=Nature Sapling
 tile.zenscape.zensapling.4.name=Flywood Sapling
 tile.zenscape.zensapling.5.name=Doku Sapling
-tile.zenscape.zensapling.6.name=Dizzy Sapling
+tile.zenscape.zensapling.6.name=Enchant Sapling
 tile.zenscape.zensapling.7.name=Gearwood Sapling
 tile.zenscape.zensapling.8.name=Uncharged Lightning Sapling
 tile.zenscape.zensapling.9.name=Joker Sapling
@@ -96,7 +96,7 @@ tile.zenscape.zenleaves.0.name=Goro Leaves
 tile.zenscape.zenleaves.1.name=Baku Leaves
 tile.zenscape.zenleaves.2.name=Doku Leaves
 tile.zenscape.zenleaves.3.name=Flywood Leaves
-tile.zenscape.zenleaves.4.name=Dizzy Leaves
+tile.zenscape.zenleaves.4.name=Enchant Leaves
 tile.zenscape.zenleaves.5.name=Joker Leaves
 tile.zenscape.zenleaves.6.name=Gearwood Leaves
 tile.zenscape.zenleaves.7.name=Copycat Leaves
@@ -145,11 +145,18 @@ tile.zenscape.pistoncrafter.name=Piston Crafter
 tile.zenscape.bush.name=Yellow Bush
 tile.zenscape.coldlava.name=Cooling Magma
 tile.zenscape.gearlog.name=Gearwood Log
-tile.zenscape.blockSkybeam.name=Skybeam
 tile.zenscape.enchanter.name=Enchanter
 tile.zenscape.airbubble.name=Air Bubbles
 tile.zenscape.potionblock.name=Bottle of Diet Pills
 tile.zenscape.copycat.name=Copycat Eye
+tile.zenscape.heartcake.name=Heart Cake
+tile.zenscape.ancientstone.0.name=Ancient Cobblestone
+tile.zenscape.ancientstone.1.name=Ancient Mossy Cobblestone
+tile.zenscape.ancientstone.2.name=Ancient Brick
+tile.zenscape.ancientgravel.name=Ancient Gravel
+tile.zenscape.ancientrose.name=Ancient Rose
+tile.zenscape.ancientgrass.name=Ancient Grass
+tile.zenscape.zensand.name=Zen Garden Sand
 
 # INVISIBLE BLOCKS
 tile.zenscape.flywood.name=Flywood (Invisible)
@@ -164,7 +171,6 @@ tile.zenscape.texbrick.3.name=Chiseled Green Brick (Invisible)
 tile.zenscape.skybush.name=Yellow Bush (Invisible)
 
 # GUIS
-zenscape.container.craftBox=Center Crafting GUI
 
 # ENTITIES
 entity.zenscape.FruitBomb.name=fruit

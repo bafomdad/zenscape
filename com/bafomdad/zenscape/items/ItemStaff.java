@@ -3,16 +3,19 @@ package com.bafomdad.zenscape.items;
 import java.io.IOException;
 import java.util.Random;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import com.bafomdad.zenscape.ZenScape;
+import com.bafomdad.zenscape.blocks.BlockCraftBox.TileCraftBox;
 import com.bafomdad.zenscape.blocks.BlockZenSapling;
 import com.bafomdad.zenscape.util.CoordOutput;
 import com.bafomdad.zenscape.worldgen.WorldGenSkyStruc;
@@ -87,7 +90,27 @@ public class ItemStaff extends Item {
 				for (int l = 0; l < inv.getSizeInventory(); l++) {
 					ItemStack stack = inv.getStackInSlot(l);
 					if (stack != null)
-						System.out.println(stack.getDisplayName() + " x" + stack.stackSize);
+						System.out.println("Slot #" + l + " " + stack.getDisplayName() + " x" + stack.stackSize);
+				}
+			}
+			if (te instanceof TileCraftBox)
+			{
+				TileCraftBox tcb = (TileCraftBox)te;
+				for (int i = 0; i < tcb.craft.getSizeInventory(); i++)
+				{
+					ItemStack crafty = tcb.craft.getStackInSlot(i);
+					System.out.println("Slot " + i + ": " + crafty);
+				}
+			}
+			if (te instanceof TileEntityEnchantmentTable)
+			{
+				Enchantment[] ench = Enchantment.enchantmentsList;
+				for (int i = 0; i < ench.length; i++) {
+					int weight;
+					if (ench[i] != null) {
+						weight = ench[i].getWeight();
+						System.out.println("Enchantment name: " + ench[i].getTranslatedName(1) + " / " + weight);
+					}
 				}
 			}
 		}

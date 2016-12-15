@@ -34,7 +34,7 @@ public class PacketFruit implements IMessage, IMessageHandler<PacketFruit, IMess
 
 		if (message.key != null)
 		{
-			System.out.println("Message sent.");
+			System.out.println("Packet Fruit: Message sent.");
 		}
 		return null;
 	}

@@ -59,12 +59,17 @@ public class BlockCopyCat extends BlockContainer {
 		
 		public boolean canLearn = true;
 		public int blockInteract = 0;
+		
+		
 		public boolean leftClick = false;
 		public byte angle = 1;
 		
 		CopyCatPlayer fakePlayer;
 		
 		public void updateEntity() {
+			
+			if (canLearn || worldObj.isRemote)
+				return;
 			
 		}
 		

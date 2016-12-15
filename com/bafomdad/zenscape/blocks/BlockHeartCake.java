@@ -1,5 +1,7 @@
 package com.bafomdad.zenscape.blocks;
 
+import java.util.Random;
+
 import com.bafomdad.zenscape.ZenScape;
 
 import cpw.mods.fml.relauncher.Side;
@@ -57,5 +59,12 @@ public class BlockHeartCake extends BlockCake {
     		world.setBlockToAir(x, y, z);
     	else
     		world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+    }
+    
+    public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+    	
+		if ((rand.nextInt(10) == 0)) {
+			world.spawnParticle("heart", x + rand.nextFloat(), y + 0.3, z + rand.nextFloat(), 0.0D, 0.03D, 0.0D);
+		}
     }
 }

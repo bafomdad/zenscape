@@ -58,11 +58,22 @@ public class LilyPadHelper {
 	
 	public void func_IceLily(World world, int posX, int posY, int posZ, Entity entity) {
 		
-		if ((!world.isRemote) && (entity instanceof EntityLivingBase)) 
+		if (world.isRemote)
+			return;
+		
+		if (entity instanceof EntityLivingBase) 
 		{
 			EntityLivingBase elb = (EntityLivingBase)entity;
 			if (!elb.isPotionActive(Potion.moveSpeed))
 				elb.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 10, 0));
+		}
+		if (entity instanceof EntityItem)
+		{
+			EntityItem ei = (EntityItem)entity;
+			if (!ei.isDead && ei.age >= 105)
+			{
+				ei.age = 105;
+			}
 		}
 	}
 	

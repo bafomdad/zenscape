@@ -70,7 +70,7 @@ public class ItemBombStaff extends Item {
     					if (savedBlocks != null) {
     						for (ZWorldInfo info : savedBlocks)
     						{
-    							if (block == Blocks.air) {
+    							if (block == Blocks.air || block == Blocks.flowing_water || block == Blocks.flowing_lava) {
     								world.setBlock(info.coords.posX, info.coords.posY, info.coords.posZ, info.block, info.metadata, 2);
     								ZBlockHandler.INSTANCE.removeBlock(world, info);
     							}
@@ -86,30 +86,4 @@ public class ItemBombStaff extends Item {
     	}	
 		return stack;
 	}
-    
-    public List<ChunkCoordinates> getBlockList(World world, ItemStack stack, int xCh, int yCh, int zCh) {
-    	
-    	List<ChunkCoordinates> coordsList = new ArrayList();
-    	
-    	int diameter = range * 2;
-    	
-    	for (int i = 1; i < diameter; i++) {
-    		for (int j = 1; j < diameter; j++) {
-    			for (int k = 1; k < diameter; k++) 
-    			{
-    				int x = xCh + i - range;
-    				int y = yCh + j - range;
-    				int z = zCh + k - range;
-    				
-    				Block block = world.getBlock(x, y, z);
-    				if (block != null && block != Blocks.air)
-    				{
-    					coordsList.add(new ChunkCoordinates(x, y, z));
-    					break;
-    				}
-    			}
-    		}
-    	}
-    	return coordsList;
-    }
 }

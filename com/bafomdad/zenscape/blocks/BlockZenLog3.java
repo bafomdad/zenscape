@@ -3,11 +3,8 @@ package com.bafomdad.zenscape.blocks;
 import java.util.List;
 import java.util.Random;
 
-import com.bafomdad.zenscape.ZenScape;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -46,10 +43,7 @@ public class BlockZenLog3 extends BlockLog {
 				for (int j = -radius; j <= radius; j++) {
 					for (int k = -radius; k <= radius; k++) {
 						if (i * i + j * j + k * k < (radius + 0.5F) * (radius + 0.5F)) {
-							if (world.isAirBlock(x + i, y + j, z + k) && !(world.getBlock(x + i, y + j - 1, z + k) instanceof IGrowable) && world.getBlockLightValue(x + i, y + j, z + k) >= 3) {
-								world.setBlock(x + i, y + j, z + k, ZenScape.blockDarkAir);
-							}
-							else if (world.getBlock(x+ i, y + j, z + k) == Blocks.torch) {
+							if (world.getBlock(x+ i, y + j, z + k) == Blocks.torch) {
 								EntityItem itemTorch = new EntityItem(world, x + i, y + j, z + k, new ItemStack(Blocks.torch));
 								world.spawnEntityInWorld(itemTorch);
 								world.setBlockToAir(x + i, y + j, z + k);
@@ -62,7 +56,7 @@ public class BlockZenLog3 extends BlockLog {
 		if (meta == 2) {
 			world.scheduleBlockUpdate(x, y, z, this, 100);
 			EntityPlayer player = world.getClosestPlayer(x, y, z, 6);
-			if (player != null)
+			if (player != null && !player.capabilities.isCreativeMode)
 			{
 				if (!player.isPotionActive(Potion.hunger))
 					player.addPotionEffect(new PotionEffect(Potion.hunger.id, 100, 2));
@@ -122,7 +116,7 @@ public class BlockZenLog3 extends BlockLog {
     	@Override
     	public String getUnlocalizedName(ItemStack stack) {
     		
-    		return this.getUnlocalizedName() + "." + stack.getItemDamage();
+    		return this.getUnlocalizedName() + "." + (stack.getItemDamage() & 0x3);
     	}
     	
     	public int getMetadata(int par1) {

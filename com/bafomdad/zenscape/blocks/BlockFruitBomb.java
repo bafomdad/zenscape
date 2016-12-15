@@ -99,14 +99,27 @@ public class BlockFruitBomb extends BlockContainerZenScape {
 		
 		return false;
 	}
+	
+	@Override
+	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+		
+		if (!player.capabilities.isCreativeMode)
+		{
+			ItemStack stack = player.getCurrentEquippedItem();
+			if (stack == null || (stack != null && stack.getItem() != ZenScape.itemGrafterNet))
+			{
+				this.dropTheBass(world, x, y, z);
+			}
+		}
+	}
 
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		
-		world.scheduleBlockUpdate(x, y, z, this, 5);
+		world.scheduleBlockUpdate(x, y, z, this, rand.nextInt(10) + 5);
 		
-		EntityPlayer ep = world.getClosestPlayer(x, y, z, 10);
-		if (ep != null && (!ep.capabilities.isCreativeMode) && (!ep.isSneaking()))
+		EntityPlayer ep = world.getClosestPlayer(x, y, z, 7);
+		if (ep != null && !ep.capabilities.isCreativeMode && !ep.isSneaking())
 			this.dropTheBass(world, x, y, z);
 	}
 
@@ -119,19 +132,15 @@ public class BlockFruitBomb extends BlockContainerZenScape {
 	   		world.spawnEntityInWorld(efb);
     	}
     }
-/**
- * 
- * Tile Entity
- *
- */
+
 	public static class TileEntityFruitBomb extends TileEntityZenScape {
-	
+		
+		public boolean canUpdate() {
+			
+			return false;
+		}
 	}
-/**
- * 
- * Tile Entity Special Renderer
- *
- */
+
 	public static class TileEntityFruitBombRenderer extends TileEntitySpecialRenderer {
 		
 		private final ModelFruitBomb model;

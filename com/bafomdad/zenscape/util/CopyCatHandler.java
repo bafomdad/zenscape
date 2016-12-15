@@ -1,7 +1,9 @@
 package com.bafomdad.zenscape.util;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.bafomdad.zenscape.ZenScape;
@@ -23,7 +25,7 @@ public class CopyCatHandler {
 		int y = (int)event.entityPlayer.posY;
 		int z = (int)event.entityPlayer.posZ;
 		
-		if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && event.world.getBlock(event.x, event.y, event.z) != ZenScape.blockCopyCat)
+		if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && event.world.getBlock(event.x, event.y, event.z) != ZenScape.blockCopyCat && getComparableBlock(event.world, event.x, event.y, event.z))
 		{
 			TileCopyCat tile = searchForNearbyTile(event.entityPlayer, x, y, z);
 			if (tile == null)
@@ -38,6 +40,26 @@ public class CopyCatHandler {
 					tile.canLearn = false;
 			}
 		}
+	}
+	
+	private boolean getComparableBlock(World world, int x, int y, int z) {
+		
+		Block block = null;
+		
+		if (ZenScape.proxy.whitelist.size() > 0) {
+			for (int i = 0; i < ZenScape.proxy.whitelist.size(); i++)
+			{
+				Block block1 = world.getBlock(x, y, z);
+				Block block2 = ZenScape.proxy.whitelist.get(i);
+				
+				if (block1 == block2)
+				{
+					block = block1;
+					break;
+				}
+			}
+		}
+		return block != null;
 	}
 	
 	private TileCopyCat searchForNearbyTile(EntityPlayer player, int x1, int y1, int z1) {

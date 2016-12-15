@@ -8,14 +8,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import com.bafomdad.zenscape.BlockZenScape;
-
 public class BlockCaveTrap extends Block {
 
 	public BlockCaveTrap(Material material) {
 		
 		super(material);
-		setTickRandomly(true);
 	}
 	
 	@Override
@@ -27,15 +24,21 @@ public class BlockCaveTrap extends Block {
 	@Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
     	
-    	if (!world.isRemote && entity instanceof EntityPlayer)
-    	{
-            world.playSoundEffect((double)x + 0.5D, (double)y + 0.1D, (double)z + 0.5D, "random.click", 0.3F, 0.5F);
-
-            world.scheduleBlockUpdate(x, y, z, this, 20);
-            {
-            	world.createExplosion(null, x, y + 1, z, 4.5F, true);
-            }
-    	}
-    	return;
+		if (entity != null && entity instanceof EntityPlayer) {
+			world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
+		}
     }
+	
+	public int tickRate(World world) {
+		
+		return 15;
+	}
+	
+	public void updateTick(World world, int x, int y, int z, Random rand) {
+		
+		if (!world.isRemote)
+		{
+			world.createExplosion(null, x, y + 1, z, 4.5F, true);
+		}
+	}
 }

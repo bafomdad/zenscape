@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -131,7 +132,7 @@ public class BlockPistonCrafter extends Block implements ITileEntityProvider {
 			
 			Block block = worldObj.getBlock(xCoord + x, yCoord + y, zCoord + z);
 			int meta = worldObj.getBlockMetadata(xCoord + x, yCoord + y, zCoord + z);
-			if (block instanceof BlockLog)
+			if (block instanceof BlockRotatedPillar)
 				meta = meta & 0x3;
 			
 			ItemStack stack = new ItemStack(block, 1, meta);

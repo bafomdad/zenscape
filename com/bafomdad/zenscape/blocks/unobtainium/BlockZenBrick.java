@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -12,10 +13,14 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 import com.bafomdad.zenscape.BlockZenScape;
 import com.bafomdad.zenscape.ZenScape;
+import com.bafomdad.zenscape.render.ZenTextureStitch;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,16 +31,49 @@ public class BlockZenBrick extends BlockZenScape {
 	public BlockZenBrick(Material material) {
 		
 		super(material);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	public int damageDropped(int par1) {
+		
+		return par1;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register) {
 		
-		zenbrick0 = ZenScape.texBrick0;
-		zenbrick1 = ZenScape.texBrick1;
-		zenbrick2 = ZenScape.texBrick2;
-		zenbrick3 = ZenScape.texBrick3;
-		zenbrick16 = ZenScape.texBrick16;
+//		zenbrick0 = ZenScape.texBrick0;
+//		zenbrick1 = ZenScape.texBrick1;
+//		zenbrick2 = ZenScape.texBrick2;
+//		zenbrick3 = ZenScape.texBrick3;
+//		zenbrick16 = ZenScape.texBrick16;
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void loadTextures(TextureStitchEvent.Pre event) {
+		
+		if (event.map.getTextureType() == 0) {
+			TextureAtlasSprite icon = new ZenTextureStitch("zenscape:zenbrick0_tex");
+			if (event.map.setTextureEntry("zenscape:zenbrick0_tex", icon))
+				zenbrick0 = icon;
+			
+			icon = new ZenTextureStitch("zenscape:zenbrick1_tex");
+			if (event.map.setTextureEntry("zenscape:zenbrick1_tex", icon))
+				zenbrick1 = icon;
+			
+			icon = new ZenTextureStitch("zenscape:zenbrick2_tex");
+			if (event.map.setTextureEntry("zenscape:zenbrick2_tex", icon))
+				zenbrick2 = icon;
+			
+			icon = new ZenTextureStitch("zenscape:zenbrick3_tex");
+			if (event.map.setTextureEntry("zenscape:zenbrick3_tex", icon))
+				zenbrick3 = icon;
+			
+			icon = new ZenTextureStitch("zenscape:zenbrick16_tex");
+			if (event.map.setTextureEntry("zenscape:zenbrick16_tex", icon))
+				zenbrick16 = icon;
+		}
 	}
 	
 	@Override

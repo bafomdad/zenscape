@@ -1,6 +1,7 @@
 package com.bafomdad.zenscape.items;
 
 import com.bafomdad.zenscape.ZenScape;
+import com.bafomdad.zenscape.blocks.BlockEnchantree.TileEnchantree;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,6 +14,23 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
 public class ItemWoodStaff extends Item {
+	
+	public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
+	
+		if (!world.isRemote)
+		{
+			Block block = world.getBlock(x, y, z);
+			if (block != null && block == ZenScape.blockEnchantree)
+			{
+				TileEnchantree tile = (TileEnchantree)world.getTileEntity(x, y, z);
+				if (tile != null && !tile.startEnchant)
+				{
+					tile.startEnchant = true;
+				}
+			}
+		}
+		return true;
+	}
 	
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player) {
 		
